@@ -1,0 +1,26 @@
+<button id="dp-theme-toggle" class="dp-theme-toggle" type="button" aria-label="Alternar tema claro/escuro">
+  <svg class="icon-sun" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M10 2v2M10 16v2M18 10h-2M4 10H2M15.5 4.5l-1.4 1.4M5.9 14.1l-1.4 1.4M15.5 15.5l-1.4-1.4M5.9 5.9L4.5 4.5"
+      stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </svg>
+  <svg class="icon-moon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <path d="M17 11.5A7 7 0 1 1 8.5 3a5.5 5.5 0 0 0 8.5 8.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </svg>
+</button>
+<script>
+(function () {
+  var btn = document.getElementById('dp-theme-toggle');
+  if (!btn) return;
+
+  function apply(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('dp-theme', theme); } catch (e) {}
+  }
+
+  btn.addEventListener('click', function () {
+    var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    apply(current === 'light' ? 'dark' : 'light');
+  });
+})();
+</script>

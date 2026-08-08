@@ -1,0 +1,331 @@
+/* =============================================================
+   Divergence Point — tema base para aulas Reveal.js / Quarto
+   Combine com um tema escuro nativo do Reveal no YAML:
+     format:
+       revealjs:
+         theme: [night, styles.css]
+   Esse arquivo cuida da marca (fontes, cores, componentes, tema
+   claro/escuro); o "night" cuida do esqueleto padrão do Reveal
+   (controles, overlays, etc.) para não reinventar tudo do zero.
+
+   Tema claro/escuro: alternado via o atributo data-theme no
+   <html>, controlado pelos scripts theme-init.html (aplica antes
+   da primeira pintura, sem "flash") e theme-toggle.html (botão).
+   Os valores abaixo são os MESMOS RGB usados no hub Next.js, pra
+   manter a identidade idêntica entre o site e os slides.
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* tema escuro (padrão) */
+  --ink: 10 12 17;
+  --ink-2: 19 22 29;
+  --ink-3: 27 31 40;
+  --chalk: 237 238 242;
+  --chalk-dim: 143 151 166;
+
+  --azul: 95 168 255;      /* Física — também cor "de marca" primária */
+  --laranja: 255 138 66;   /* Computação */
+  --prata: 174 185 203;    /* Matemática / informativo neutro */
+
+  --verde: 52 211 153;     /* resposta correta / fácil */
+  --vermelho: 255 92 92;   /* difícil / atenção forte */
+}
+
+[data-theme="light"] {
+  --ink: 241 238 231;
+  --ink-2: 250 248 244;
+  --ink-3: 233 229 219;
+  --chalk: 20 23 28;
+  --chalk-dim: 91 100 114;
+
+  --azul: 42 103 209;
+  --laranja: 205 91 27;
+  --prata: 62 86 115;
+
+  --verde: 15 138 96;
+  --vermelho: 197 48 48;
+}
+
+/* ---------- base ---------- */
+
+.reveal {
+  font-family: 'Manrope', sans-serif;
+  color: rgb(var(--chalk));
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal-viewport {
+  background: rgb(var(--ink));
+  transition: background-color 0.2s ease;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: rgb(var(--chalk));
+}
+
+.reveal h2 {
+  color: rgb(var(--azul));
+  border-bottom: 4px solid rgb(var(--azul));
+  padding-bottom: 0.15em;
+  display: inline-block;
+  font-size: 0.8em;
+}
+
+.reveal a {
+  color: rgb(var(--azul));
+}
+.reveal a:hover {
+  color: rgb(var(--laranja));
+}
+
+.reveal code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.reveal pre {
+  background: rgb(var(--ink-2));
+  border: 1px solid rgb(var(--chalk) / 0.12);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.reveal pre code {
+  background: transparent;
+  color: rgb(var(--chalk));
+}
+
+.reveal blockquote {
+  background: rgb(var(--ink-2));
+  border-left: 5px solid rgb(var(--prata));
+  border-radius: 8px;
+  box-shadow: none;
+  font-style: normal;
+}
+
+.reveal .progress {
+  color: rgb(var(--azul));
+}
+
+/* slide de título gerado pelo Quarto (metadata title/subtitle/author/date) */
+.reveal .title-slide h1 {
+  color: rgb(var(--chalk));
+}
+.reveal .title-slide .subtitle {
+  color: rgb(var(--chalk-dim));
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+}
+
+/* Slides de seção com fundo colorido (data-background-color) */
+.reveal .slide-background[data-background-color] h1,
+.reveal .slide-background[data-background-color] h2 {
+  color: #ffffff;
+  border-bottom: none;
+}
+
+/* rodapé e número de página herdam branco fixo do tema "night" —
+   sem isso, ficam ilegíveis no tema claro */
+.reveal .footer {
+  color: rgb(var(--chalk-dim));
+}
+
+.reveal .slide-number {
+  color: rgb(var(--chalk-dim));
+  background: transparent;
+}
+
+/* ---------- badge de número/dificuldade do exercício ---------- */
+
+.badge {
+  display: inline-block;
+  background: rgb(var(--azul));
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.15em 0.9em;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+  margin-left: 0.5em;
+}
+.badge.facil { background: rgb(var(--verde)); color: #06231a; }
+.badge.medio { background: rgb(var(--laranja)); color: #2a1608; }
+.badge.dificil { background: rgb(var(--vermelho)); color: #2a0a0a; }
+
+/* ---------- cartão de enunciado ---------- */
+
+.enunciado,
+.passo,
+.resposta,
+.dica,
+.atencao,
+.importante {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.enunciado {
+  background: rgb(var(--ink-2));
+  border: 1px solid rgb(var(--chalk) / 0.12);
+  border-left: 6px solid rgb(var(--azul));
+  border-radius: 10px;
+  padding: 0.5em 1.1em;
+  margin: 0.4em 0 0.8em 0;
+  font-size: 0.92em;
+  color: rgb(var(--chalk));
+}
+
+/* ---------- passos da resolução ---------- */
+
+.passo {
+  background: rgb(var(--ink-3));
+  border: 1px solid rgb(var(--chalk) / 0.12);
+  border-left: 5px solid rgb(var(--prata));
+  border-radius: 8px;
+  padding: 0.1em 0.9em;
+  margin: 0.1em 0;
+  font-size: 0.85em;
+  color: rgb(var(--chalk));
+}
+
+.passo strong {
+  color: rgb(var(--prata));
+}
+
+/* ---------- resposta final ---------- */
+
+.resposta {
+  background: rgb(var(--verde) / 0.12);
+  border-left: 6px solid rgb(var(--verde));
+  border-radius: 10px;
+  padding: 0.4em 1em;
+  margin-top: 0.4em;
+  font-weight: 600;
+  font-size: 0.9em;
+  color: rgb(var(--chalk));
+}
+
+/* ---------- caixas de apoio pedagógico ---------- */
+
+.dica,
+.atencao,
+.importante {
+  border-radius: 10px;
+  padding: 0.5em 1em;
+  margin: 0.5em 0;
+  font-size: 0.8em;
+  color: rgb(var(--chalk));
+}
+.dica { background: rgb(var(--azul) / 0.1); border-left: 5px solid rgb(var(--azul)); }
+.atencao { background: rgb(var(--laranja) / 0.1); border-left: 5px solid rgb(var(--laranja)); }
+.importante { background: rgb(var(--prata) / 0.1); border-left: 5px solid rgb(var(--prata)); }
+
+/* ---------- utilitários de tamanho ---------- */
+
+.smaller { font-size: 0.72em; }
+.menor { font-size: 0.62em; }
+
+/* ---------- layout em colunas ---------- */
+
+.reveal .columns {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* ---------- tabelas ---------- */
+
+.reveal table {
+  font-size: 0.75em;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.reveal table th {
+  background: rgb(var(--azul));
+  color: #ffffff;
+  padding: 0.35em 0.7em;
+}
+
+.reveal table td {
+  background: rgb(var(--ink-2));
+  border-bottom: 1px solid rgb(var(--chalk) / 0.12);
+  padding: 0.3em 0.7em;
+}
+
+/* ---------- fórmula em destaque ---------- */
+
+.formula-destaque {
+  background: linear-gradient(135deg, rgb(var(--azul) / 0.12), rgb(var(--laranja) / 0.08));
+  border: 2px solid rgb(var(--azul));
+  border-radius: 16px;
+  padding: 0.2em 1.2em;
+  display: block;
+  margin: 0.2em 0;
+  color: rgb(var(--chalk));
+}
+
+/* ---------- figuras/gráficos ---------- */
+
+.reveal .quarto-figure,
+.reveal img {
+  max-width: 85%;
+  max-height: 55vh;
+  height: auto;
+  display: block;
+  margin-inline: auto;
+}
+
+/* ---------- logo na capa ---------- */
+
+.cover-logo {
+  display: block;
+  margin: 0 auto 0.4em auto;
+  height: 130px;
+  width: auto;
+}
+
+/* ---------- botão de alternância de tema ---------- */
+
+.dp-theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  width: 34px;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--chalk) / 0.18);
+  background: rgb(var(--ink-2) / 0.85);
+  color: rgb(var(--chalk-dim));
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.dp-theme-toggle:hover {
+  color: rgb(var(--azul));
+  border-color: rgb(var(--azul) / 0.5);
+}
+.dp-theme-toggle svg {
+  height: 16px;
+  width: 16px;
+}
+.dp-theme-toggle .icon-moon { display: inline-flex; }
+.dp-theme-toggle .icon-sun { display: none; }
+[data-theme="light"] .dp-theme-toggle .icon-moon { display: none; }
+[data-theme="light"] .dp-theme-toggle .icon-sun { display: inline-flex; }

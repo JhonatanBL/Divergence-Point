@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* tema claro (padrão / sem classe .dark) — tons do papel/entorno da logo */
+  --board: 241 238 231;
+  --board-2: 250 248 244;
+  --board-3: 233 229 219;
+  --chalk: 20 23 28;
+  --chalk-dim: 91 100 114;
+  --accent-blue: 42 103 209;
+  --accent-orange: 205 91 27;
+  --accent-silver: 62 86 115;
+  --accent-green: 22 101 52;
+}
+
+.dark {
+  /* tema escuro — tons de tinta/espaço da logo */
+  --board: 10 12 17;
+  --board-2: 19 22 29;
+  --board-3: 27 31 40;
+  --chalk: 237 238 242;
+  --chalk-dim: 143 151 166;
+  --accent-blue: 95 168 255;
+  --accent-orange: 255 138 66;
+  --accent-silver: 174 185 203;
+  --accent-green: 34 197 94;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--board));
+  background-image:
+    radial-gradient(circle at 15% 10%, rgb(var(--accent-blue) / 0.07) 0, transparent 35%),
+    radial-gradient(circle at 85% 75%, rgb(var(--accent-orange) / 0.06) 0, transparent 40%);
+  color: rgb(var(--chalk));
+  font-family: var(--font-body);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* textura sutil sobre o fundo, mais discreta no tema claro */
+.chalk-texture {
+  position: relative;
+}
+.chalk-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dark .chalk-texture::before {
+  opacity: 0.06;
+}
+
+.underline-chalk {
+  position: relative;
+  display: inline-block;
+}
+.underline-chalk::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: -0.08em;
+  height: 0.09em;
+  background: currentColor;
+  opacity: 0.55;
+  border-radius: 2px;
+  transform: rotate(-0.6deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up {
+    animation: fadeUp 0.6s ease-out both;
+  }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+::selection {
+  background: rgb(var(--accent-blue));
+  color: rgb(var(--board));
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--accent-blue));
+  outline-offset: 2px;
+}

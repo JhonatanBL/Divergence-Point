@@ -1,0 +1,116 @@
+---
+title: "Título da Aula"
+subtitle: "Assunto — Matéria"
+author: "Jhonatan"
+date: today
+date-format: "DD/MM/YYYY"
+lang: pt
+title-slide-attributes:
+  data-background-image: ../../src/logo.png   # logo na capa (slide de título gerado pelo Quarto)
+  data-background-size: 160px
+  data-background-position: top 6% center
+format:
+  revealjs:
+    theme: night                      # base escura nativa do Reveal
+    css: ../../src/styles.css                   # aplica a marca Divergence Point por cima (CSS simples — não usar dentro de "theme", que exige formato SCSS)
+    slide-number: c/t
+    progress: true
+    controls: true
+    hash: true
+    transition: slide
+    background-transition: fade
+    highlight-style: nord             # tema de destaque de código — combina com azul/prata da marca
+    code-line-numbers: true
+    width: 1280
+    height: 720
+    margin: 0.08
+    embed-resources: true             # gera um único index.html autocontido — ótimo pra colar direto em public/aulas/<slug>/
+    auto-stretch: false               # tamanho da figura sob controle do CSS/matplotlib, não do redimensionamento automático via JS
+    footer: "Divergence Point"
+    include-in-header: ../../src/theme-init.html    # aplica o tema salvo antes da 1ª pintura (sem flash)
+    include-after-body: ../../src/theme-toggle.html # botão sol/lua fixo no canto, alterna e salva o tema
+---
+
+## Roteiro da Aula
+
+- Conceito 1
+- Conceito 2
+- Exercícios resolvidos
+
+## Conceito Principal
+
+Texto explicando a teoria. Para destacar uma fórmula central:
+
+::: {.formula-destaque}
+$$F = G \dfrac{m_1 m_2}{r^2}$$
+:::
+
+## Exercício 1 <span class="badge facil">fácil</span>
+
+::: {.enunciado}
+Enuncie o problema aqui, com os dados fornecidos.
+:::
+
+::: {.passo}
+**Passo 1.** Identifique as grandezas conhecidas.
+:::
+
+::: {.passo}
+**Passo 2.** Substitua na fórmula e resolva.
+:::
+
+::: {.resposta}
+Resposta: valor final com unidade.
+:::
+
+## Exercício 2 <span class="badge medio">médio</span>
+
+::: {.enunciado}
+Um segundo problema, um pouco mais elaborado.
+:::
+
+:::: {.columns}
+::: {.column width="50%"}
+**Dados**
+
+- Grandeza A = ...
+- Grandeza B = ...
+:::
+::: {.column width="50%"}
+**Resolução**
+
+::: {.passo}
+Desenvolvimento da conta.
+:::
+:::
+::::
+
+::: {.resposta}
+Resposta final aqui.
+:::
+
+## Exercício 3 <span class="badge dificil">difícil</span>
+
+::: {.atencao}
+**Atenção:** um erro comum nesse tipo de questão.
+:::
+
+::: {.dica}
+**Dica:** um jeito mais rápido de resolver.
+:::
+
+::: {.importante}
+**Importante:** condição que não pode ser esquecida.
+:::
+
+## Tabela de Referência
+
+| Grandeza | Símbolo | Unidade (SI) |
+|---|---|---|
+| Massa | $m$ | kg |
+| Aceleração | $a$ | m/s² |
+| Força | $F$ | N |
+
+## Fim da Aula {background-color="#ff8a42"}
+
+Dúvidas? Próxima aula: *(tema seguinte)*.
