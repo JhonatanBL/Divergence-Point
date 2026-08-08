@@ -168,3 +168,4 @@ aplica o tema certo antes da primeira renderização, sem "flash" de tema
 errado. O padrão inicial é o tema escuro. Para mudar o padrão, edite
 `defaultTheme` em `app/layout.tsx`.
 # Divergent-Point
+# Divergent-Point
