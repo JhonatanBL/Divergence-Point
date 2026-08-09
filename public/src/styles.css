@@ -329,3 +329,43 @@
 .dp-theme-toggle .icon-sun { display: none; }
 [data-theme="light"] .dp-theme-toggle .icon-moon { display: none; }
 [data-theme="light"] .dp-theme-toggle .icon-sun { display: inline-flex; }
+
+/* =============================================================
+   Responsivo — telas estreitas (celular em pé, principalmente)
+   O Reveal já reduz a lousa 1280x720 inteira via transform pra
+   caber em qualquer tela (nunca "quebra"), mas alguns ajustes
+   deixam a leitura melhor especificamente no celular:
+   - colunas empilham em vez de espremer lado a lado
+   - alvo de toque do botão de tema fica maior (mín. 44px)
+   - zoom por toque continua liberado (ver meta viewport em
+     theme-init.html) pra quem quiser ampliar mesmo assim
+   ============================================================= */
+
+@media (max-width: 600px) {
+  .reveal .columns {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .dp-theme-toggle {
+    top: 10px;
+    right: 10px;
+    height: 40px;
+    width: 40px;
+  }
+
+  .reveal .quarto-figure,
+  .reveal img {
+    max-width: 100%;
+  }
+}
+
+/* Reveal tem seu próprio breakpoint interno (~600px de largura real
+   da tela) que já reduz um pouco o texto de controles/rodapé; aqui
+   só garantimos que nosso rodapé/número de página acompanham isso
+   sem ficarem grandes demais perto dos controles de navegação */
+@media (max-width: 420px) {
+  .reveal .footer {
+    font-size: 0.7em;
+  }
+}
