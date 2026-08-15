@@ -100,8 +100,8 @@ html, body {
   border-bottom: 2px solid rgb(var(--azul));
   padding-bottom: 0.2em;
   display: inline-block;
-  font-size: clamp(0.5em, 1.6vw, 0.7em);
-  margin-bottom: 0.5em;
+  font-size: clamp(0.9em, 1.8vw, 0.9em);
+  margin-bottom: 0.6em;
 }
 
 .reveal a {
@@ -206,7 +206,7 @@ html, body {
   border: 1px solid rgb(var(--chalk) / 0.12);
   border-left: 6px solid rgb(var(--azul));
   border-radius: 10px;
-  padding: 0.2em 1.2em;
+  padding: 0.15em 0.9em;
   margin: 0.3em 0 0.5em 0;
   font-size: 0.92em;
   color: rgb(var(--chalk));
@@ -217,7 +217,7 @@ html, body {
   border: 1px solid rgb(var(--chalk) / 0.12);
   border-left: 5px solid rgb(var(--prata));
   border-radius: 8px;
-  padding: 0.1em 0.9em;
+  padding: 0.08em 0.7em;
   margin: 0.15em 0;
   font-size: 0.85em;
   color: rgb(var(--chalk));
@@ -232,7 +232,7 @@ html, body {
   border: 1px solid rgb(var(--verde) / 0.3);
   border-left: 6px solid rgb(var(--verde));
   border-radius: 10px;
-  padding: 0.2em 1.1em;
+  padding: 0.15em 0.9em;
   margin-top: 0.3em;
   font-weight: 600;
   font-size: 0.9em;
@@ -243,7 +243,7 @@ html, body {
 .atencao,
 .importante {
   border-radius: 10px;
-  padding: 0.5em 1.1em;
+  padding: 0.4em 0.9em;
   margin: 0.5em 0;
   font-size: 0.82em;
   color: rgb(var(--chalk));
@@ -308,7 +308,7 @@ html, body {
   background: linear-gradient(135deg, rgb(var(--azul) / 0.15), rgb(var(--laranja) / 0.1));
   border: 2px solid rgb(var(--azul));
   border-radius: 14px;
-  padding: 0.2em 1.2em;
+  padding: 0.15em 0.9em;
   display: block;
   margin: 0.4em 0;
   color: rgb(var(--chalk));
@@ -406,7 +406,7 @@ body.reveal-scroll .scroll-page-sticky,
 body.reveal-scroll .scroll-page-content {
   height: auto !important;
   min-height: 100% !important;
-  padding-top: 2.5rem !important;
+  padding-top: 0rem !important;
   transform: none !important;
 }
 
@@ -457,6 +457,8 @@ body,
 
 .reveal .slides > section.present {
   top: 0 !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
 }
 
 @media (max-width: 600px) {
@@ -481,12 +483,12 @@ body,
   .dica,
   .atencao,
   .importante {
-    padding: 0.4em 0.8em;
+    padding: 0.3em 0.6em;
     margin: 0.3em 0;
     font-size: 0.8em;
   }
 
   .formula-destaque {
-    padding: 0.3em 0.8em;
+    padding: 0.25em 0.6em;
   }
 }

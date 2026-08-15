@@ -163,7 +163,7 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="../../src/logo.png" data-background-position="top 60% center" data-background-size="8em" class="quarto-title-block center">
+<section id="title-slide" data-background-image="../../src/logo.png" data-background-position="top 60% center" data-background-size="7.5em" class="quarto-title-block center">
   <h1 class="title">Título da Aula</h1>
   <p class="subtitle">Assunto — Matéria</p>
 
@@ -177,7 +177,7 @@ Jhonatan
 
   <p class="date">14/08/2026</p>
 </section>
-<section id="roteiro-da-aula" class="slide level2">
+<section id="roteiro-da-aula" class="slide level2 center">
 <h2>Roteiro da Aula</h2>
 <ul>
 <li>A Lei da Gravitação Universal</li>
@@ -185,14 +185,14 @@ Jhonatan
 <li>Exercícios resolvidos</li>
 </ul>
 </section>
-<section id="conceito-principal" class="slide level2">
+<section id="conceito-principal" class="slide level2 center">
 <h2>Conceito Principal</h2>
 <div class="formula-destaque">
 <p><span class="math display">F = G \dfrac{m_1 m_2}{r^2}</span></p>
 </div>
 <p>Todo par de corpos se atrai com uma força proporcional ao produto das massas e inversamente proporcional ao quadrado da distância entre eles.</p>
 </section>
-<section id="como-a-força-cai-com-a-distância" class="slide level2">
+<section id="como-a-força-cai-com-a-distância" class="slide level2 center">
 <h2>Como a força cai com a distância</h2>
 <div id="cell-fig-forca-distancia" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
@@ -209,7 +209,7 @@ Figura&nbsp;1: Força gravitacional em função da distância (massas fixas)
 </div>
 </div>
 </section>
-<section id="comparando-com-outras-interações" class="slide level2">
+<section id="comparando-com-outras-interações" class="slide level2 center">
 <h2>Comparando com outras interações</h2>
 <div id="cell-fig-comparacao" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
@@ -226,7 +226,7 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
 </div>
 </div>
 </section>
-<section id="exercício-1-fácil" class="slide level2">
+<section id="exercício-1-fácil" class="slide level2 center">
 <h2>Exercício 1 <span class="badge facil">fácil</span></h2>
 <div class="enunciado">
 <p>Dois corpos de massas <span class="math inline">m_1 = 2\,\text{kg}</span> e <span class="math inline">m_2 = 3\,\text{kg}</span> estão a <span class="math inline">r = 0{,}5\,\text{m}</span> um do outro. Calcule a força gravitacional entre eles.</p>
@@ -241,7 +241,7 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
 <p>Resposta: <span class="math inline">F \approx 1{,}6 \times 10^{-9}\,\text{N}</span></p>
 </div>
 </section>
-<section id="exercício-2-médio" class="slide level2">
+<section id="exercício-2-médio" class="slide level2 center">
 <h2>Exercício 2 <span class="badge medio">médio</span></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -264,7 +264,7 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
 <p>Resposta: <span class="math inline">F_A = F_B \approx 4{,}27 \times 10^{-9}\,\text{N}</span></p>
 </div>
 </section>
-<section id="exercício-3-difícil" class="slide level2">
+<section id="exercício-3-difícil" class="slide level2 center">
 <h2>Exercício 3 <span class="badge dificil">difícil</span></h2>
 <div class="enunciado">
 <p>A que distância dois corpos de <span class="math inline">10\,\text{kg}</span> cada devem estar para que a força gravitacional entre eles seja de <span class="math inline">1\,\text{N}</span>?</p>
@@ -279,7 +279,7 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
 <p>Resposta: <span class="math inline">r \approx 2{,}58 \times 10^{-5}\,\text{m}</span></p>
 </div>
 </section>
-<section id="tabela-de-referência" class="slide level2">
+<section id="tabela-de-referência" class="slide level2 center">
 <h2>Tabela de Referência</h2>
 <table class="caption-top">
 <thead>
@@ -318,7 +318,7 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
 </tbody>
 </table>
 </section>
-<section id="fim-da-aula" class="slide level2" data-background-color="#ff8a42">
+<section id="fim-da-aula" class="slide level2 center" data-background-color="#ff8a42">
 <h2>Fim da Aula</h2>
 <p>Dúvidas? Próxima aula: <em>Órbitas e a 3ª Lei de Kepler</em>.</p>
 
@@ -409,7 +409,7 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
         disableLayout: false,
 
         // Vertical centering of slides
-        center: false,
+        center: true,
 
         // Enables touch navigation on devices with touch input
         touch: true,
@@ -505,12 +505,12 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1280,
+        width: 1050,
 
-        height: 720,
+        height: 700,
 
         // Factor of the display size that should remain empty around the content
-        margin: 4.0e-2,
+        margin: 6.0e-2,
 
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
