@@ -1,0 +1,197 @@
+---
+title: "Título da Aula"
+subtitle: "Assunto — Matéria"
+author: "Jhonatan"
+date: today
+date-format: "DD/MM/YYYY"
+lang: pt
+title-slide-attributes:
+  data-background-image: ../../src/logo.png   # logo na capa (slide de título gerado pelo Quarto)
+  data-background-size: 8em
+  data-background-position: top 60% center
+format:
+  revealjs:
+    chalkboard:
+      buttons: true       
+      theme: chalkboard 
+    theme: sky                      # base escura nativa do Reveal
+    css: styles.css                
+    slide-number: c/t
+    html-math-method: katex 
+    progress: true
+    controls: true
+    hash: true
+    transition: fade
+    background-transition: fade
+    highlight-style: nord             # tema de destaque de código — combina com azul/prata da marca
+    code-line-numbers: true
+    width: 1280
+    height: 720
+    margin: 0.08
+    responsive: true
+    auto-stretch: false
+    footer: "Divergence Point"
+    include-in-header: theme-init.html    # aplica o tema salvo antes da 1ª pintura (sem flash)
+    include-after-body: theme-toggle.html # botão sol/lua fixo no canto, alterna e salva o tema
+execute:
+  echo: false
+  warning: false
+jupyter: python3
+---
+
+```{python}
+#| output: false
+import matplotlib.pyplot as plt
+import sys
+sys.path.append("../../src")
+
+import dp_style
+
+dp_style.apply()
+```
+
+
+## Roteiro da Aula
+
+- A Lei da Gravitação Universal
+- Como a força varia com a distância
+- Exercícios resolvidos
+
+## Conceito Principal
+
+::: {.formula-destaque}
+$$F = G \dfrac{m_1 m_2}{r^2}$$
+:::
+
+Todo par de corpos se atrai com uma força proporcional ao produto das
+massas e inversamente proporcional ao quadrado da distância entre eles.
+
+## Como a força cai com a distância
+
+```{python}
+#| label: fig-forca-distancia
+#| fig-cap: "Força gravitacional em função da distância (massas fixas)"
+#| fig-align: center
+
+import numpy as np
+
+G, m1, m2 = 6.674e-11, 5.97e24, 7.35e22
+r = np.linspace(3.0e8, 5.0e8, 200)
+F = G * m1 * m2 / r**2
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.plot(r / 1e6, F, color=dp_style.PALETTE["azul"], linewidth=2.5)
+ax.set_xlabel("Distância (milhões de km)")
+ax.set_ylabel("Força (N)")
+ax.grid(axis="y")
+ax.set_axisbelow(True)
+fig.tight_layout()
+plt.show()
+```
+
+## Comparando com outras interações
+
+```{python}
+#| label: fig-comparacao
+#| fig-cap: "Intensidade relativa de cada força fundamental (escala log)"
+#| fig-align: center
+
+forcas = {"Gravitacional": 1e-39, "Fraca": 1e-13, "Eletromagnética": 1e-2, "Forte": 1}
+cores = [
+    dp_style.PALETTE["azul"],
+    dp_style.PALETTE["prata"],
+    dp_style.PALETTE["laranja"],
+    dp_style.PALETTE["vermelho"],
+]
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.bar(forcas.keys(), forcas.values(), color=cores, width=0.55)
+ax.set_yscale("log")
+ax.set_ylabel("Intensidade relativa")
+ax.grid(axis="y")
+ax.set_axisbelow(True)
+fig.tight_layout()
+plt.show()
+```
+
+## Exercício 1 <span class="badge facil">fácil</span>
+
+::: {.enunciado}
+Dois corpos de massas $m_1 = 2\,\text{kg}$ e $m_2 = 3\,\text{kg}$ estão a
+$r = 0{,}5\,\text{m}$ um do outro. Calcule a força gravitacional entre eles.
+:::
+
+::: {.passo}
+**Passo 1.** Substitua os valores na fórmula: $F = G \dfrac{m_1 m_2}{r^2}$.
+:::
+
+::: {.passo}
+**Passo 2.** $F = 6{,}674\times10^{-11} \cdot \dfrac{2 \cdot 3}{0{,}5^2}$
+:::
+
+::: {.resposta}
+Resposta: $F \approx 1{,}6 \times 10^{-9}\,\text{N}$
+:::
+
+## Exercício 2 <span class="badge medio">médio</span>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Configuração A**
+
+- $m_1 = 4\,\text{kg}$, $m_2 = 4\,\text{kg}$
+- $r = 1\,\text{m}$
+:::
+
+::: {.column width="50%"}
+**Configuração B**
+
+- $m_1 = 8\,\text{kg}$, $m_2 = 2\,\text{kg}$
+- $r = 1\,\text{m}$
+:::
+
+::::
+
+::: {.passo}
+Como $m_1 \cdot m_2 = 16\,\text{kg}^2$ nas duas configurações, a força
+gravitacional resultante é **idêntica** nos dois casos.
+:::
+
+::: {.resposta}
+Resposta: $F_A = F_B \approx 4{,}27 \times 10^{-9}\,\text{N}$
+:::
+
+## Exercício 3 <span class="badge dificil">difícil</span>
+
+::: {.enunciado}
+A que distância dois corpos de $10\,\text{kg}$ cada devem estar para que a
+força gravitacional entre eles seja de $1\,\text{N}$?
+:::
+
+::: {.atencao}
+**Atenção:** força enorme pra corpos tão pequenos — por isso só sentimos
+gravidade relevante perto de corpos com massa planetária.
+:::
+
+::: {.dica}
+**Dica:** isole $r$ antes de substituir: $r = \sqrt{G \, m_1 m_2 / F}$.
+:::
+
+::: {.resposta}
+Resposta: $r \approx 2{,}58 \times 10^{-5}\,\text{m}$
+:::
+
+## Tabela de Referência
+
+| Grandeza | Símbolo | Unidade (SI) |
+|---|---|---|
+| Massa | $m$ | kg |
+| Distância | $r$ | m |
+| Aceleração | $a$ | m/s² |
+| Força | $F$ | N |
+| Constante gravitacional | $G$ | N·m²/kg² |
+
+## Fim da Aula {background-color="#ff8a42"}
+
+Dúvidas? Próxima aula: *Órbitas e a 3ª Lei de Kepler*.

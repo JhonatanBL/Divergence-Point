@@ -128,7 +128,6 @@ export const lessons: Lesson[] = [
     level: "Graduação",
     date: "2026-06-15",
     folder: "atencao-bahdanau",
-    comingSoon: true,
   },
   // Adicione novas aulas aqui seguindo o mesmo formato.
   // {

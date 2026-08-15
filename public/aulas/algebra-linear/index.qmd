@@ -7,16 +7,17 @@ date-format: "DD/MM/YYYY"
 lang: pt
 title-slide-attributes:
   data-background-image: ../../src/logo.png   # logo na capa (slide de título gerado pelo Quarto)
-  data-background-size: 4.5em
-  data-background-position: top 6% center
+  data-background-size: 8em
+  data-background-position: top 60% center
 format:
   revealjs:
     chalkboard:
       buttons: true       
       theme: chalkboard 
-    theme: sky                      # base escura nativa do Reveal
+    theme: night                   # base escura nativa do Reveal
     css: ../../src/styles.css                
     slide-number: c/t
+    html-math-method: katex 
     progress: true
     controls: true
     hash: true
@@ -26,7 +27,7 @@ format:
     code-line-numbers: true
     width: 1280
     height: 720
-    margin: 0.08
+    margin: 0.04
     responsive: true
     auto-stretch: false
     footer: "Divergence Point"

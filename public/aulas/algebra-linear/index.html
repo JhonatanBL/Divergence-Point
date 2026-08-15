@@ -6,11 +6,10 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-38902dcd73e7f8352ecceb5e549548c1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dark-38902dcd73e7f8352ecceb5e549548c1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jhonatan">
-  <meta name="dcterms.date" content="2026-09-08">
   <title>Título da Aula</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -36,8 +35,24 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-830b23b76b375dd2c7496e5ed2f764c6.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2ff0c58e303a8fe774f6ca0867e1d816.css">
   <link rel="stylesheet" href="../../src/styles.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -144,11 +159,11 @@
   })();
   </script>
 </head>
-<body class="quarto-light">
+<body class="quarto-dark">
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="../../src/logo.png" data-background-position="top 6% center" data-background-size="4.5em" class="quarto-title-block center">
+<section id="title-slide" data-background-image="../../src/logo.png" data-background-position="top 60% center" data-background-size="8em" class="quarto-title-block center">
   <h1 class="title">Título da Aula</h1>
   <p class="subtitle">Assunto — Matéria</p>
 
@@ -160,7 +175,7 @@ Jhonatan
 </div>
 </div>
 
-  <p class="date">09/08/2026</p>
+  <p class="date">14/08/2026</p>
 </section>
 <section id="roteiro-da-aula" class="slide level2">
 <h2>Roteiro da Aula</h2>
@@ -173,7 +188,7 @@ Jhonatan
 <section id="conceito-principal" class="slide level2">
 <h2>Conceito Principal</h2>
 <div class="formula-destaque">
-<p><span class="math display">\[F = G \dfrac{m_1 m_2}{r^2}\]</span></p>
+<p><span class="math display">F = G \dfrac{m_1 m_2}{r^2}</span></p>
 </div>
 <p>Todo par de corpos se atrai com uma força proporcional ao produto das massas e inversamente proporcional ao quadrado da distância entre eles.</p>
 </section>
@@ -214,16 +229,16 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
 <section id="exercício-1-fácil" class="slide level2">
 <h2>Exercício 1 <span class="badge facil">fácil</span></h2>
 <div class="enunciado">
-<p>Dois corpos de massas <span class="math inline">\(m_1 = 2\,\text{kg}\)</span> e <span class="math inline">\(m_2 = 3\,\text{kg}\)</span> estão a <span class="math inline">\(r = 0{,}5\,\text{m}\)</span> um do outro. Calcule a força gravitacional entre eles.</p>
+<p>Dois corpos de massas <span class="math inline">m_1 = 2\,\text{kg}</span> e <span class="math inline">m_2 = 3\,\text{kg}</span> estão a <span class="math inline">r = 0{,}5\,\text{m}</span> um do outro. Calcule a força gravitacional entre eles.</p>
 </div>
 <div class="passo">
-<p><strong>Passo 1.</strong> Substitua os valores na fórmula: <span class="math inline">\(F = G \dfrac{m_1 m_2}{r^2}\)</span>.</p>
+<p><strong>Passo 1.</strong> Substitua os valores na fórmula: <span class="math inline">F = G \dfrac{m_1 m_2}{r^2}</span>.</p>
 </div>
 <div class="passo">
-<p><strong>Passo 2.</strong> <span class="math inline">\(F = 6{,}674\times10^{-11} \cdot \dfrac{2 \cdot 3}{0{,}5^2}\)</span></p>
+<p><strong>Passo 2.</strong> <span class="math inline">F = 6{,}674\times10^{-11} \cdot \dfrac{2 \cdot 3}{0{,}5^2}</span></p>
 </div>
 <div class="resposta">
-<p>Resposta: <span class="math inline">\(F \approx 1{,}6 \times 10^{-9}\,\text{N}\)</span></p>
+<p>Resposta: <span class="math inline">F \approx 1{,}6 \times 10^{-9}\,\text{N}</span></p>
 </div>
 </section>
 <section id="exercício-2-médio" class="slide level2">
@@ -232,36 +247,36 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
 <div class="column" style="width:50%;">
 <p><strong>Configuração A</strong></p>
 <ul>
-<li><span class="math inline">\(m_1 = 4\,\text{kg}\)</span>, <span class="math inline">\(m_2 = 4\,\text{kg}\)</span></li>
-<li><span class="math inline">\(r = 1\,\text{m}\)</span></li>
+<li><span class="math inline">m_1 = 4\,\text{kg}</span>, <span class="math inline">m_2 = 4\,\text{kg}</span></li>
+<li><span class="math inline">r = 1\,\text{m}</span></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><strong>Configuração B</strong></p>
 <ul>
-<li><span class="math inline">\(m_1 = 8\,\text{kg}\)</span>, <span class="math inline">\(m_2 = 2\,\text{kg}\)</span></li>
-<li><span class="math inline">\(r = 1\,\text{m}\)</span></li>
+<li><span class="math inline">m_1 = 8\,\text{kg}</span>, <span class="math inline">m_2 = 2\,\text{kg}</span></li>
+<li><span class="math inline">r = 1\,\text{m}</span></li>
 </ul>
 </div></div>
 <div class="passo">
-<p>Como <span class="math inline">\(m_1 \cdot m_2 = 16\,\text{kg}^2\)</span> nas duas configurações, a força gravitacional resultante é <strong>idêntica</strong> nos dois casos.</p>
+<p>Como <span class="math inline">m_1 \cdot m_2 = 16\,\text{kg}^2</span> nas duas configurações, a força gravitacional resultante é <strong>idêntica</strong> nos dois casos.</p>
 </div>
 <div class="resposta">
-<p>Resposta: <span class="math inline">\(F_A = F_B \approx 4{,}27 \times 10^{-9}\,\text{N}\)</span></p>
+<p>Resposta: <span class="math inline">F_A = F_B \approx 4{,}27 \times 10^{-9}\,\text{N}</span></p>
 </div>
 </section>
 <section id="exercício-3-difícil" class="slide level2">
 <h2>Exercício 3 <span class="badge dificil">difícil</span></h2>
 <div class="enunciado">
-<p>A que distância dois corpos de <span class="math inline">\(10\,\text{kg}\)</span> cada devem estar para que a força gravitacional entre eles seja de <span class="math inline">\(1\,\text{N}\)</span>?</p>
+<p>A que distância dois corpos de <span class="math inline">10\,\text{kg}</span> cada devem estar para que a força gravitacional entre eles seja de <span class="math inline">1\,\text{N}</span>?</p>
 </div>
 <div class="atencao">
 <p><strong>Atenção:</strong> força enorme pra corpos tão pequenos — por isso só sentimos gravidade relevante perto de corpos com massa planetária.</p>
 </div>
 <div class="dica">
-<p><strong>Dica:</strong> isole <span class="math inline">\(r\)</span> antes de substituir: <span class="math inline">\(r = \sqrt{G \, m_1 m_2 / F}\)</span>.</p>
+<p><strong>Dica:</strong> isole <span class="math inline">r</span> antes de substituir: <span class="math inline">r = \sqrt{G \, m_1 m_2 / F}</span>.</p>
 </div>
 <div class="resposta">
-<p>Resposta: <span class="math inline">\(r \approx 2{,}58 \times 10^{-5}\,\text{m}\)</span></p>
+<p>Resposta: <span class="math inline">r \approx 2{,}58 \times 10^{-5}\,\text{m}</span></p>
 </div>
 </section>
 <section id="tabela-de-referência" class="slide level2">
@@ -277,27 +292,27 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
 <tbody>
 <tr class="odd">
 <td>Massa</td>
-<td><span class="math inline">\(m\)</span></td>
+<td><span class="math inline">m</span></td>
 <td>kg</td>
 </tr>
 <tr class="even">
 <td>Distância</td>
-<td><span class="math inline">\(r\)</span></td>
+<td><span class="math inline">r</span></td>
 <td>m</td>
 </tr>
 <tr class="odd">
 <td>Aceleração</td>
-<td><span class="math inline">\(a\)</span></td>
+<td><span class="math inline">a</span></td>
 <td>m/s²</td>
 </tr>
 <tr class="even">
 <td>Força</td>
-<td><span class="math inline">\(F\)</span></td>
+<td><span class="math inline">F</span></td>
 <td>N</td>
 </tr>
 <tr class="odd">
 <td>Constante gravitacional</td>
-<td><span class="math inline">\(G\)</span></td>
+<td><span class="math inline">G</span></td>
 <td>N·m²/kg²</td>
 </tr>
 </tbody>
@@ -329,7 +344,6 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
   <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -496,29 +510,11 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
         height: 720,
 
         // Factor of the display size that should remain empty around the content
-        margin: 8.0e-2,
-
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
+        margin: 4.0e-2,
 
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -539,15 +535,62 @@ Figura&nbsp;2: Intensidade relativa de cada força fundamental (escala log)
       var btn = document.getElementById('dp-theme-toggle');
       if (!btn) return;
 
+      // ---------- Alternância do Tema Claro/Escuro ----------
+      var BOARD = { dark: 'rgb(10, 12, 17)', light: 'rgb(241, 238, 231)' };
+
+      function paintBackground(theme) {
+        var bg = BOARD[theme] || BOARD.dark;
+        document.querySelectorAll('html, body, .reveal-viewport, .reveal').forEach(function (el) {
+          el.style.setProperty('background-color', bg, 'important');
+        });
+      }
+
       function apply(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         try { localStorage.setItem('dp-theme', theme); } catch (e) {}
+        paintBackground(theme);
       }
 
       btn.addEventListener('click', function () {
         var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
         apply(current === 'light' ? 'dark' : 'light');
       });
+
+      paintBackground(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+
+      // ---------- Alinhamento no Topo (Lógica do Template Antigo) ----------
+      var BASE_WIDTH = 1280;
+      var BASE_HEIGHT = 720;
+      var NARROW_BREAKPOINT = 600;
+
+      function fitMobileCanvas() {
+        if (!window.Reveal || typeof Reveal.configure !== 'function') return;
+
+        var isNarrow = window.innerWidth < NARROW_BREAKPOINT;
+        var height = isNarrow
+          ? Math.round(BASE_WIDTH * (window.innerHeight / window.innerWidth))
+          : BASE_HEIGHT;
+
+        Reveal.configure({ width: BASE_WIDTH, height: height, center: false });
+        Reveal.layout();
+      }
+
+      var resizeTimer = null;
+      function scheduleFitMobileCanvas(delay) {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(fitMobileCanvas, delay || 120);
+      }
+
+      fitMobileCanvas();
+      window.addEventListener('resize', function () { scheduleFitMobileCanvas(120); });
+      window.addEventListener('orientationchange', function () { scheduleFitMobileCanvas(250); });
+
+      if (window.matchMedia) {
+        var mq = window.matchMedia('(max-width: ' + NARROW_BREAKPOINT + 'px)');
+        var onBreakpointChange = function () { scheduleFitMobileCanvas(0); };
+        if (mq.addEventListener) mq.addEventListener('change', onBreakpointChange);
+        else if (mq.addListener) mq.addListener(onBreakpointChange);
+      }
     })();
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
