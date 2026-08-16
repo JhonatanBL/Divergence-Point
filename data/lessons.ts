@@ -80,9 +80,21 @@ export const lessons: Lesson[] = [
     date: "2026-05-20",
     folder: "gravitacao-universal",
   },
+    {
+    slug: "introducao-algebra-linear",
+    title: "introduçao",
+    subject: "Matemática",
+    stage: "Graduação",
+    topic: "Algebra Linear",
+    description:
+      "Uma jornada de quatro séculos mostrando como a necessidade de unir forma e número — de Descartes a Grassmann e Peano — deu origem à Álgebra Linear.",
+    level: "Graduaçao",
+    date: "2026-05-20",
+    folder: "algebra-linear/introducao-algebra-linear",
+  },
   {
     slug: "algebra-linear",
-    title: "algebra-linear",
+    title: "algebra Linear",
     subject: "Matemática",
     stage: "Graduação",
     topic: "Algebra Linear",
