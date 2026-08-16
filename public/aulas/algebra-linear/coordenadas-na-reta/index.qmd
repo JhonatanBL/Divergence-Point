@@ -1,0 +1,434 @@
+---
+title: "Coordenadas na reta"
+subtitle: "Algebra Linear"
+author: "Divergence Point"
+date: today
+date-format: "DD/MM/YYYY"
+lang: pt
+title-slide-attributes:
+  data-background-image: ../../../src/logo.png   # logo na capa (slide de título gerado pelo Quarto)
+  data-background-size: 7.5em
+  data-background-position: top 60% center
+format:
+  revealjs:
+    chalkboard:
+      buttons: true       
+      theme: chalkboard 
+    theme: night                   # base escura nativa do Reveal
+    css: ../../../src/styles.css                
+    scrollable: false
+    slide-number: c/t
+    progress: true
+    controls: true
+    hash: true
+    transition: fade
+    background-transition: fade
+    highlight-style: nord            
+    code-line-numbers: true
+    margin: 0.06
+    responsive: true
+    auto-stretch: false
+    footer: "Divergence Point"
+    include-in-header: ../../../src/theme-init.html    
+    include-after-body: ../../../src/theme-toggle.html 
+execute:
+  echo: false
+  warning: false
+jupyter: python3
+---
+
+```{python}
+#| output: false
+import matplotlib.pyplot as plt
+import sys
+sys.path.append("../../../src")
+
+import dp_style
+
+dp_style.apply()
+```
+
+## Noção de distancia
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Admitimos fixada uma unidade de comprimento.
+Dados os pontos $A$,$B$ quaisquer, o comprimento do segmento de reta $AB$ chama-se a *distancia* entre os pontos $A$ e $B$. Escrevemos $d(A,B)$ ou $\overline{AB}$ para indicar essa distância, que é um numero real.
+
+Convencionaremos por $d(A,A) = 0$ e se $A \ne B$, então $d(A,B) > 0$.
+Além disso, vale
+$$d(A,C) + d(C,B) = d(A,B)$$
+se, e somente se, o ponto $C$ pentence ao segmento de reta $AB$. 
+
+É claro também que $d(A,B) = d(B,A)$.
+:::
+
+::: {.column width="50%"}
+A noção de distância permite introduzir coordenadas sobre uma reta,
+ou seja, representar os pontos da reta por meio de números reais. Para
+fazer isto, será necessário orientar a reta e escolher um dos seus pontos
+como origem.
+Uma reta diz-se orientada quando sobre ela se escolheu um sentido de
+percurso, chamado *positivo*, o sentido inverso chama-se *negativo*. Numa
+reta orientada, diz-se que o ponto $B$ está à direita do ponto $A$ (portanto
+$A$ está à esquerda de $B$) quando o sentido de percurso de $A$ para $B$ é
+positivo.
+:::
+::::
+
+---
+
+## Reta orientada
+
+:::: {.columns}
+
+::: {.column width="50%"}
+  Um *eixo* é uma reta orientada na qual se fixou um ponto $O$, chamado
+a *origem*.
+
+Todo eixo $E$ pode ser posto, de modo natural, em correspondência bíunivoca com o conjunto $\mathbb{R}$ dos numeros reais 
+do seguinte modo: 
+À origem O do eixo faz-se corresponder o número zero. A cada ponto $X$ de $E$ situado à direita de $O$ corresponde o número realpositivo $x =
+d(O, X) =$ distância de $X$ à origem = comprimento do segmento de reta
+$OX$. Aos pontos situados à esquerda de $O$ correspondem números reais
+negativos, cujos valores absolutos medem as distâncias desses pontos à
+origem.
+:::
+
+::: {.column width="50%"}
+O número real $x$, que corresponde ao ponto $X$ do eixo $E$ da maneira
+acima indicada, chama-se a *coordenada* desse ponto. Reciprocamente,
+para cada número real $x$ existe um (único) ponto $X$ em $E$ cuja coordenada é $x$.
+
+```{python}
+#| label: fig-distancia
+#| fig-cap: "$x = d(O,X)$, e $x' = -d(O,X')$"
+#| fig-align: center
+#| ha: 'center'
+#| fig-format: svg
+
+# Tamanho da figura aumentado
+
+
+fig, ax = plt.subplots(figsize=(15, 4))
+
+cor_texto = dp_style.TEXT_COLOR
+
+# Linha e seta com espessura (lw=4) e ponta (mutation_scale=40) proporcionalmente maiores
+ax.annotate('', xy=(3.7, 0), xytext=(-3.7, 0),
+            arrowprops=dict(arrowstyle="-|>", color=cor_texto, lw=4, mutation_scale=40))
+
+pontos = [
+    (-1.8, "$X'$", "$x'$"),
+    (0.0, "$O$", "$0$"),
+    (1.8, "$X$", "$x$")
+]
+
+# Marcadores (markersize=14), textos (fontsize=32) e deslocamento vertical aumentados
+for x, rotulo_cima, rotulo_baixo in pontos:
+    ax.plot(x, 0, 'o', color=cor_texto, markersize=14)
+    ax.text(x, 0.35, rotulo_cima, color=cor_texto, fontsize=32, ha='center', va='bottom')
+    ax.text(x, -0.35, rotulo_baixo, color=cor_texto, fontsize=32, ha='center', va='top')
+
+# Limites verticais ampliados para os rótulos grandes não cortarem
+ax.set_xlim(-4.2, 4.2)
+ax.set_ylim(-1.5, 1.5)
+ax.axis('off')
+
+plt.show()
+```
+:::
+::::
+
+---
+
+## A álgebra árabe e indiana: verdade que se calcula
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Enquanto isso, em outra tradição matemática, o foco era resolver equações. O matemático indiano Brahmagupta, no século VII, já trabalhava com números negativos e soluções de equações quadráticas. Mas é o persa **Muhammad ibn Musa al-Khwarizmi**, no século IX, em Bagdá, quem sistematiza os métodos para resolver equações em uma obra chamada *Al-Jabr wal-Muqabala*, de onde vem, literalmente, a palavra "álgebra". Al-Khwarizmi descreve procedimentos gerais para isolar uma incógnita, sem nunca desenhar uma única figura. Seu trabalho é puramente simbólico e procedimental: dado um problema com uma quantidade desconhecida, ele ensina os passos exatos para descobri-la. 
+:::
+
+::: {.column width="50%"}
+É uma matemática do algoritmo, não do desenho. Curiosamente, o nome de al-Khwarizmi também deu origem à palavra "algoritmo", um indício de como sua contribuição se tornaria central para toda a matemática computacional que viria séculos depois.
+Até o início do século XVII, geometria e álgebra eram tratadas como disciplinas paralelas, cada uma com seu próprio vocabulário, suas próprias provas e suas próprias comunidades de estudiosos. 
+:::
+::::
+
+---
+
+## Entre os dois mundos
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Um matemático treinado em geometria euclidiana podia passar a vida inteira sem jamais escrever uma equação algébrica para descrever uma curva; um algebrista treinado nos métodos árabes podia resolver equações cúbicas complexas sem nunca representar graficamente o que estava calculando.
+
+Essa separação não era um detalhe menor, ela limitava concretamente o que a matemática conseguia fazer. Problemas de astronomia, navegação e mecânica, que ganhavam urgência crescente no início da era moderna, muitas vezes exigiam calcular propriedades de curvas, algo que a geometria pura fazia com dificuldade e a álgebra pura nem sequer sabia representar.
+:::
+
+::: {.column width="50%"}
+| Aspecto | Geometria (tradição grega) | Álgebra (tradição árabe/indiana) |
+|---|---|---|
+| Objeto de estudo | Figuras, formas, espaço | Números, incógnitas, equações |
+| Ferramenta principal | Régua e compasso | Procedimentos e regras de cálculo |
+| Forma de prova | Construção e demonstração visual | Manipulação simbólica passo a passo |
+| Representação de uma curva | Traçado geométrico | Não existia representação direta |
+| Principais nomes | Tales, Pitágoras, Euclides | Al-Khwarizmi, Brahmagupta, Diofanto |
+| Limitação central | Sem linguagem para generalizar cálculos | Sem linguagem para representar formas |
+:::
+::::
+
+---
+
+## 1637: Descartes constrói a ponte
+
+:::: {.columns}
+
+::: {.column width="50%"}
+A solução aparece em um apêndice quase modesto de uma obra filosófica. Em 1637, **René Descartes** publica o *Discurso do Método*, e em um de seus apêndices, *La Géométrie*, apresenta uma ideia que mudaria para sempre o destino das duas tradições: sobrepor ao plano geométrico um sistema de dois eixos numerados, perpendiculares entre si. A partir dessa construção simples, qualquer ponto do plano passa a corresponder a um par ordenado de números, e qualquer curva passa a corresponder a uma equação que relaciona esses números.
+:::
+
+::: {.column width="50%"}
+Uma reta deixa de ser apenas um traço e passa a ser `y = ax + b`. Um círculo deixa de ser apenas um contorno e passa a ser `x² + y² = r²`. Descartes não estava simplesmente decorando a geometria com números, ele estava criando uma tradução completa entre dois idiomas que, até então, não tinham dicionário um para o outro. Essa tradução é o que hoje chamamos de **Geometria Analítica**.
+:::
+::::
+
+---
+
+## Fermat: a mesma ideia, um caminho paralelo
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Curiosamente, Descartes não estava sozinho nessa descoberta. **Pierre de Fermat**, advogado e matemático amador em Toulouse, chega a conclusões muito semelhantes de forma essencialmente independente, também na década de 1630, embora seu trabalho só circule amplamente entre correspondentes e só seja publicado postumamente. Fermat parte de um ângulo ligeiramente diferente: ele busca generalizar os métodos da geometria grega, especialmente os trabalhos de Apolônio sobre cônicas, usando álgebra como ferramenta auxiliar.
+:::
+
+::: {.column width="50%"}
+Enquanto Descartes tinha uma ambição mais filosófica, construir um método universal de raciocínio do qual a geometria analítica seria apenas uma aplicação, Fermat tinha uma motivação mais matemática e específica: entender melhor as curvas clássicas. Juntos, e sem terem trabalhado em conjunto, os dois fundam a mesma disciplina por caminhos distintos, o que é um padrão que se repetirá várias vezes nesta história.
+:::
+::::
+
+---
+
+## Por que a geometria analítica precisava existir
+
+:::: {.columns}
+
+::: {.column width="50%"}
+A Geometria Analítica não nasce de um capricho estético, ela responde a uma necessidade concreta que se acumulava havia séculos. A astronomia do século XVII, impulsionada por Kepler e depois por Newton, precisava descrever órbitas, e órbitas são curvas complexas que a régua e o compasso não conseguem tratar com a precisão necessária. A navegação marítima, cada vez mais dependente de cálculos de trajetória, também exigia uma forma de calcular propriedades de curvas, comprimentos, inclinações, pontos de interseção, sem depender exclusivamente de construções manuais.
+:::
+
+::: {.column width="50%"}
+Descartes tinha ainda uma ambição maior: ele sonhava com um método racional único, aplicável a qualquer problema, fosse ele geométrico, físico ou filosófico. A geometria analítica era, para ele, a prova de que esse método funcionava, a demonstração de que formas complicadas podiam ser domadas por equações simples. É esse casamento entre forma e número que abre caminho para tudo o que vem a seguir: sem ele, não haveria como representar geometricamente as soluções de um sistema de equações, e não haveria como perceber que sistemas de equações e transformações do espaço são, no fundo, a mesma coisa vista de ângulos diferentes.
+:::
+::::
+
+---
+
+## Sistemas lineares: um problema muito mais antigo
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Enquanto a geometria analítica resolvia o problema de representar curvas, um segundo problema, muito mais antigo, já rondava a matemática havia milênios: como resolver várias equações que precisam ser verdadeiras **ao mesmo tempo**. Esse tipo de problema aparece sempre que várias quantidades desconhecidas estão amarradas por várias condições simultâneas, repartir terras entre herdeiros, misturar grãos de preços diferentes, calcular impostos proporcionais.
+:::
+
+::: {.column width="50%"}
+O caso chinês é particularmente notável: o texto *Jiuzhang Suanshu* (Nove Capítulos sobre a Arte Matemática), compilado por volta de 200 a.C., já descreve um procedimento de eliminação por colunas praticamente idêntico, em espírito, ao que hoje ensinamos como eliminação gaussiana, quase dois mil anos antes de Gauss nascer. O que faltava não era o problema, e sim uma **linguagem geral** capaz de tratá-lo de forma abstrata, aplicável a qualquer número de equações e incógnitas, independentemente do contexto prático específico.
+:::
+::::
+
+## Linha do tempo
+
+A tabela a seguir mostra como diferentes civilizações, em épocas muito distantes entre si, já lidavam com versões desse mesmo problema, cada uma com seu próprio vocabulário e sem qualquer contato entre elas.
+
+| Época | Civilização / Fonte | Contribuição para sistemas lineares |
+|---|---|---|
+| ~1800 a.C. | Babilônia (tábuas cuneiformes) | Problemas práticos com duas incógnitas resolvidos por métodos aritméticos |
+| ~300 a.C. | Grécia (Euclides) | Proporções e razões, sem tratamento algébrico direto de sistemas |
+| ~200 a.C. | China (*Jiuzhang Suanshu*) | Método de eliminação por colunas, essencialmente equivalente à eliminação gaussiana |
+| ~250 d.C. | Alexandria (Diofanto) | Álgebra retórica para equações com uma ou mais incógnitas inteiras |
+| Século IX | Bagdá (Al-Khwarizmi) | Sistematização de métodos algébricos gerais para resolver equações |
+| 1750 | Suíça (Gabriel Cramer) | Regra explícita para resolver sistemas lineares usando determinantes |
+
+
+---
+
+## Cramer e os determinantes: um atalho antes do método geral
+
+:::: {.columns}
+
+::: {.column width="50%"}
+No século XVIII, antes mesmo de existir o conceito de matriz, os matemáticos já haviam encontrado uma forma elegante, embora limitada, de resolver sistemas lineares pequenos. Em 1750, o matemático genebrino **Gabriel Cramer** publica o que hoje conhecemos como a Regra de Cramer: uma fórmula que expressa a solução de um sistema linear diretamente em termos de razões entre determinantes. É importante notar a ordem histórica aqui, porque ela é contraintuitiva: os **determinantes**, números calculados a partir de um arranjo quadrado de coeficientes, surgem antes da ideia de tratar esse arranjo como um objeto algébrico próprio, a matriz.
+:::
+
+::: {.column width="50%"}
+Leibniz já havia esboçado ideias semelhantes décadas antes, em correspondências privadas que só vieram à luz muito depois. A regra de Cramer é poderosa para sistemas pequenos, mas se torna rapidamente impraticável à medida que o número de equações cresce, o cálculo de determinantes grandes exige um número de operações que explode com o tamanho do sistema. Essa limitação prática é exatamente o que torna necessário um método mais eficiente, que virá poucas décadas depois.
+:::
+::::
+
+---
+
+## Gauss e a eliminação: um método nascido do céu
+
+:::: {.columns}
+
+::: {.column width="50%"}
+O nome mais associado à resolução sistemática de equações lineares é **Carl Friedrich Gauss**, embora, como vimos, o método em si já existisse na China havia dois milênios. A motivação de Gauss, porém, é reveladora do espírito desta história inteira: em 1801, o astrônomo Giuseppe Piazzi observa e depois perde de vista o planeta anão Ceres, recém-descoberto. Restam apenas algumas poucas observações de sua posição no céu. Gauss, então com vinte e quatro anos, desenvolve um método para prever a órbita completa de Ceres a partir de observações limitadas, um problema que, matematicamente, se reduz a resolver um grande sistema de equações lineares de forma eficiente e sistemática.
+:::
+
+::: {.column width="50%"}
+O procedimento que ele organiza, hoje chamado de **eliminação gaussiana**, transforma qualquer sistema, por maior que seja, em uma sequência de passos simples e repetíveis: eliminar uma incógnita de cada vez, equação por equação, até restar uma única incógnita isolada, e então substituir de volta. Gauss não estava pensando em fundar uma disciplina chamada Álgebra Linear, ele queria, literalmente, encontrar um planeta perdido no céu noturno. Mas o método que ele sistematizou se tornaria, dali em diante, a espinha dorsal computacional de toda a área.
+:::
+::::
+
+---
+
+## Cayley e o nascimento da matriz
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Por mais de um século, sistemas de equações continuaram sendo escritos equação por equação, sem que existisse um nome, ou um conjunto de regras algébricas próprias, para o bloco retangular de coeficientes que os representava. Isso muda em 1858, quando o matemático britânico **Arthur Cayley** publica *A Memoir on the Theory of Matrices*, propondo tratar essa tabela de números como um objeto matemático único, com suas próprias operações de soma e multiplicação. É essencial entender a motivação de Cayley, porque ela não vem de sistemas de equações, e sim de **transformações**: Cayley estava estudando como transformações lineares do espaço, rotações, projeções, escalonamentos, se comportam quando aplicadas em sequência, uma depois da outra.
+:::
+
+::: {.column width="50%"}
+Ele percebe que a composição de duas transformações lineares corresponde exatamente à multiplicação das tabelas de números que as representam, e que essa multiplicação obedece regras específicas, diferentes da multiplicação comum de números, em particular, ela não é comutativa: a ordem em que se aplicam duas transformações importa. Pela primeira vez, um sistema inteiro de equações, ou uma transformação inteira do espaço, podia ser manipulado como se fosse um único objeto algébrico, sujeito a suas próprias regras consistentes.
+:::
+::::
+
+---
+
+## Hamilton: quando o número não bastava mais
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Quase ao mesmo tempo em que Cayley desenvolvia sua teoria de matrizes, um outro problema, vindo da física, empurrava a matemática em uma direção paralela. O irlandês **William Rowan Hamilton** vinha, desde a década de 1830, tentando resolver um problema aparentemente simples: assim como os números complexos permitem representar rotações e escalas no plano bidimensional, deveria existir um sistema numérico equivalente para o espaço tridimensional. Hamilton passou anos tentando construir esse sistema com apenas três componentes, sem sucesso, até que, em um momento célebre, caminhando por uma ponte em Dublin em 16 de outubro de 1843, ele percebe que a solução exige **quatro** componentes, não três, e grava a fórmula fundamental dos **quatérnions** na pedra da ponte.
+:::
+
+::: {.column width="50%"}
+Os quatérnions nunca se tornaram a ferramenta universal que Hamilton sonhava, mas o caminho que ele percorreu para chegar até eles obriga a matemática a formalizar, pela primeira vez de forma explícita, a ideia de uma grandeza que tem tanto **magnitude** quanto **direção**, o que hoje chamamos de vetor. A física newtoniana já lidava intuitivamente com forças e velocidades direcionais havia séculos, mas faltava um objeto matemático rigoroso para representá-las. Hamilton fornece esse objeto.
+:::
+::::
+
+---
+
+## Grassmann: a ideia esquecida à frente do seu tempo
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Quase simultaneamente, e de forma totalmente independente, o professor alemão **Hermann Grassmann**, um educador de ensino médio sem formação matemática formal avançada, publica em 1844 uma obra chamada *Die lineale Ausdehnungslehre* (A Teoria da Extensão Linear). O que Grassmann propõe é surpreendentemente moderno: em vez de se limitar a três dimensões como o espaço físico, ele constrói uma teoria de espaços com **qualquer número de dimensões**, onde entidades abstratas podem ser somadas entre si e multiplicadas por números, obedecendo regras consistentes de linearidade. Em essência, Grassmann havia inventado o conceito geral de **espaço vetorial** décadas antes de esse nome existir.
+:::
+
+::: {.column width="50%"}
+O problema é que sua obra era escrita em um estilo extremamente abstrato e filosófico, quase incompreensível para os matemáticos de sua época, e por isso foi amplamente ignorada durante décadas. Grassmann morre em 1877 sem ver seu trabalho devidamente reconhecido, ele acabaria, inclusive, se voltando para a linguística, onde teve mais reconhecimento em vida. Décadas depois, quando a matemática finalmente desenvolve a linguagem necessária para apreciar sua obra, Grassmann é redescoberto como um dos verdadeiros pioneiros da Álgebra Linear moderna, um exemplo claro de uma ideia certa, mas adiantada demais para seu tempo.
+:::
+::::
+
+---
+
+## Peano e a axiomatização do espaço vetorial
+
+:::: {.columns}
+
+::: {.column width="50%"}
+A peça final que faltava para transformar um conjunto de ideias dispersas em uma disciplina matemática unificada vem do italiano **Giuseppe Peano**, já mais conhecido por sua axiomatização dos números naturais. Em 1888, Peano publica *Calcolo Geometrico*, no qual apresenta, pela primeira vez de forma inteiramente rigorosa e axiomática, a definição moderna de **espaço vetorial**: um conjunto de objetos que podem ser somados entre si e multiplicados por escalares, satisfazendo uma lista precisa de propriedades, associatividade, comutatividade da soma, existência de elemento neutro, existência de inverso aditivo, e assim por diante.
+:::
+
+::: {.column width="50%"}
+Esse gesto de axiomatização é decisivo. A partir dele, deixa de importar se os "vetores" em questão são segmentos orientados no espaço físico, colunas de números, funções, ou qualquer outro tipo de objeto, desde que satisfaçam os axiomas, todas as ferramentas e teoremas da teoria se aplicam igualmente. É esse movimento de abstração que permite, finalmente, perceber que retas cartesianas, sistemas gaussianos, matrizes de Cayley e as construções de Hamilton e Grassmann são todos **casos particulares de uma única estrutura subjacente**.
+:::
+::::
+
+---
+
+## O século XX: tudo se reconhece como uma só coisa
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Ao longo das primeiras décadas do século XX, matemáticos de diferentes tradições, incluindo a influente escola francesa reunida sob o pseudônimo coletivo **Nicolas Bourbaki**, consolidam e sistematizam essa visão unificada. A Álgebra Linear moderna, como é ensinada hoje em qualquer curso universitário, não nasce de um problema novo e específico, mas sim do reconhecimento retrospectivo de que vários problemas antigos e aparentemente distintos, representar curvas, resolver sistemas, compor transformações, descrever grandezas direcionais, eram, no fundo, manifestações diferentes de uma mesma estrutura matemática.
+:::
+
+::: {.column width="50%"}
+Esse período também vê a extensão dessas ideias para espaços de dimensão infinita, através dos trabalhos de David Hilbert e Stefan Banach sobre espaços de funções, abrindo caminho para aplicações que vão muito além da geometria física tridimensional, incluindo, décadas mais tarde, os fundamentos matemáticos da mecânica quântica.
+:::
+::::
+
+---
+
+## Da teoria à máquina: o século da computação
+
+:::: {.columns}
+
+::: {.column width="50%"}
+A segunda metade do século XX transforma a Álgebra Linear de uma teoria elegante em uma ferramenta computacional indispensável. Com o advento dos computadores digitais, a eliminação gaussiana, o mesmo método usado por Gauss para rastrear um planeta perdido, se torna a base de praticamente todo cálculo numérico em larga escala: simulações de engenharia, previsão do tempo, modelos econômicos.
+:::
+
+::: {.column width="50%"}
+A multiplicação de matrizes, formalizada por Cayley para entender composição de transformações abstratas, se torna a operação central da computação gráfica, permitindo rotacionar, escalar e projetar objetos tridimensionais na tela de um computador milhões de vezes por segundo. Grandes avanços algorítmicos, como a decomposição em valores singulares e os métodos iterativos para sistemas de grande porte, surgem justamente da necessidade de aplicar essas ideias antigas a problemas com milhões, e depois bilhões, de variáveis simultâneas.
+:::
+::::
+
+---
+
+## Onde tudo isso chega hoje
+
+:::: {.columns}
+
+::: {.column width="50%"}
+No presente, a Álgebra Linear é a infraestrutura invisível por trás de praticamente toda tecnologia digital que envolve dados, imagens ou aprendizado. Uma fotografia digital é, matematicamente, uma matriz de números representando intensidades de pixel; comprimi-la, filtrá-la ou aplicá-la a um efeito visual é, em essência, multiplicá-la por outras matrizes. Uma rede neural artificial, a base de sistemas de reconhecimento de voz, tradução automática e geração de texto, é, estrutural e literalmente, uma sequência de multiplicações de matrizes intercaladas com pequenas não linearidades.
+:::
+
+::: {.column width="50%"}
+Sistemas de recomendação, motores de busca, simulações físicas e algoritmos de compressão de dados dependem, em algum nível fundamental, das mesmas ideias que nasceram da tentativa de Descartes de unir forma e número, da necessidade prática de Gauss de rastrear um planeta, e da abstração aparentemente inútil de Grassmann sobre espaços de qualquer dimensão. A pergunta que abriu esta história, *pode uma forma ser uma equação?*, continua sendo, quatro séculos depois, uma das perguntas mais produtivas já feitas na matemática.
+:::
+::::
+
+---
+
+## Síntese: por que ela existe, afinal
+
+Se voltarmos ao início e perguntarmos, em uma única frase, por que a Álgebra Linear existe, a resposta não é uma única razão, mas o encontro de várias necessidades que amadureceram em paralelo ao longo de séculos.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Ela existe porque a forma e o número precisavam de uma linguagem comum, e Descartes e Fermat construíram essa ponte no século XVII. Ela existe porque sistemas de condições simultâneas apareciam na vida prática desde a Antiguidade, e precisavam de um método geral e eficiente, que a China antiga esboçou e Gauss sistematizou observando o céu.
+:::
+
+::: {.column width="50%"}
+Ela existe porque transformações do espaço obedecem regras algébricas próprias, que Cayley soube capturar em um único objeto chamado matriz. Ela existe porque grandezas com direção não cabiam dentro de um único número, e Hamilton e Grassmann, cada um a seu modo, criaram a linguagem que faltava. E ela existe, sobretudo, porque em algum momento, com Peano, e depois com toda a matemática do século XX, percebeu-se que todas essas ideias, nascidas de problemas tão diferentes entre si, eram no fundo **a mesma ideia**, vista de ângulos diferentes ao longo do tempo.
+:::
+::::
+
+---
+
+## Referências
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- ANTON, Howard; RORRES, Chris. **Álgebra Linear com Aplicações**. 10. ed. Porto Alegre: Bookman, 2012.
+- AXLER, Sheldon. **Linear Algebra Done Right**. 4. ed. Cham: Springer, 2023. (Undergraduate Texts in Mathematics)
+- LIMA, Elon Lages. **Álgebra Linear**. 1. ed. Rio de Janeiro: IMPA, 2014. (Coleção Matemática Universitária)
+:::
+
+::: {.column width="50%"}
+- LIMA, Elon Lages. **Geometria Analítica e Álgebra Linear**. 1. ed. Rio de Janeiro: IMPA, 2014. (Coleção Matemática Universitária)
+- STRANG, Gilbert. **Linear Algebra and Its Applications**. 4. ed. Belmont: Cengage Learning, 2006.
+:::
+::::
+
+---
+
+## Fim
+
+::: {.center}
+Obrigado.
+:::

@@ -93,8 +93,8 @@ export const lessons: Lesson[] = [
     folder: "algebra-linear/introducao-algebra-linear",
   },
   {
-    slug: "algebra-linear",
-    title: "algebra Linear",
+    slug: "estruturas-algebricas",
+    title: "Estruturas Algebricas",
     subject: "Matemática",
     stage: "Graduação",
     topic: "Algebra Linear",
@@ -102,7 +102,19 @@ export const lessons: Lesson[] = [
       "Lei da gravitação universal, órbitas e simulação interativa da atração entre corpos.",
     level: "Graduaçao",
     date: "2026-05-20",
-    folder: "algebra-linear",
+    folder: "algebra-linear/estruturas-algebricas",
+  },
+    {
+    slug: "coordenadas-na-reta",
+    title: "Coordenadas na Reta",
+    subject: "Matemática",
+    stage: "Graduação",
+    topic: "Algebra Linear",
+    description:
+      "Lei da gravitação universal, órbitas e simulação interativa da atração entre corpos.",
+    level: "Graduaçao",
+    date: "2026-05-20",
+    folder: "algebra-linear/coordenadas-na-reta",
   },
   {
     slug: "muv",

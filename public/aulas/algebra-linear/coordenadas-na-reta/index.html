@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="pt"><head>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dark-38902dcd73e7f8352ecceb5e549548c1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Divergence Point">
+  <title>Coordenadas na reta</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2ff0c58e303a8fe774f6ca0867e1d816.css">
+  <link rel="stylesheet" href="../../../src/styles.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('dp-theme');
+      var theme = saved === 'light' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+  </script>
+</head>
+<body class="quarto-dark">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="../../../src/logo.png" data-background-position="top 60% center" data-background-size="7.5em" class="quarto-title-block center">
+  <h1 class="title">Coordenadas na reta</h1>
+  <p class="subtitle">Algebra Linear</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Divergence Point
+</div>
+</div>
+</div>
+
+  <p class="date">16/08/2026</p>
+</section>
+<section id="noção-de-distancia" class="slide level2">
+<h2>Noção de distancia</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Admitimos fixada uma unidade de comprimento. Dados os pontos <span class="math inline">\(A\)</span>,<span class="math inline">\(B\)</span> quaisquer, o comprimento do segmento de reta <span class="math inline">\(AB\)</span> chama-se a <em>distancia</em> entre os pontos <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>. Escrevemos <span class="math inline">\(d(A,B)\)</span> ou <span class="math inline">\(\overline{AB}\)</span> para indicar essa distância, que é um numero real.</p>
+<p>Convencionaremos por <span class="math inline">\(d(A,A) = 0\)</span> e se <span class="math inline">\(A \ne B\)</span>, então <span class="math inline">\(d(A,B) &gt; 0\)</span>. Além disso, vale <span class="math display">\[d(A,C) + d(C,B) = d(A,B)\]</span> se, e somente se, o ponto <span class="math inline">\(C\)</span> pentence ao segmento de reta <span class="math inline">\(AB\)</span>.</p>
+<p>É claro também que <span class="math inline">\(d(A,B) = d(B,A)\)</span>.</p>
+</div><div class="column" style="width:50%;">
+<p>A noção de distância permite introduzir coordenadas sobre uma reta, ou seja, representar os pontos da reta por meio de números reais. Para fazer isto, será necessário orientar a reta e escolher um dos seus pontos como origem. Uma reta diz-se orientada quando sobre ela se escolheu um sentido de percurso, chamado <em>positivo</em>, o sentido inverso chama-se <em>negativo</em>. Numa reta orientada, diz-se que o ponto <span class="math inline">\(B\)</span> está à direita do ponto <span class="math inline">\(A\)</span> (portanto <span class="math inline">\(A\)</span> está à esquerda de <span class="math inline">\(B\)</span>) quando o sentido de percurso de <span class="math inline">\(A\)</span> para <span class="math inline">\(B\)</span> é positivo.</p>
+</div></div>
+</section>
+<section id="reta-orientada" class="slide level2">
+<h2>Reta orientada</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Um <em>eixo</em> é uma reta orientada na qual se fixou um ponto <span class="math inline">\(O\)</span>, chamado a <em>origem</em>.</p>
+<p>Todo eixo <span class="math inline">\(E\)</span> pode ser posto, de modo natural, em correspondência bíunivoca com o conjunto <span class="math inline">\(\mathbb{R}\)</span> dos numeros reais do seguinte modo: À origem O do eixo faz-se corresponder o número zero. A cada ponto <span class="math inline">\(X\)</span> de <span class="math inline">\(E\)</span> situado à direita de <span class="math inline">\(O\)</span> corresponde o número realpositivo <span class="math inline">\(x =
+d(O, X) =\)</span> distância de <span class="math inline">\(X\)</span> à origem = comprimento do segmento de reta <span class="math inline">\(OX\)</span>. Aos pontos situados à esquerda de <span class="math inline">\(O\)</span> correspondem números reais negativos, cujos valores absolutos medem as distâncias desses pontos à origem.</p>
+</div><div class="column" style="width:50%;">
+<p>O número real <span class="math inline">\(x\)</span>, que corresponde ao ponto <span class="math inline">\(X\)</span> do eixo <span class="math inline">\(E\)</span> da maneira acima indicada, chama-se a <em>coordenada</em> desse ponto. Reciprocamente, para cada número real <span class="math inline">\(x\)</span> existe um (único) ponto <span class="math inline">\(X\)</span> em <span class="math inline">\(E\)</span> cuja coordenada é <span class="math inline">\(x\)</span>.</p>
+<div id="cell-fig-distancia" class="cell" data-fig-format="svg" data-ha="center" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div id="fig-distancia" class="quarto-float quarto-figure quarto-figure-center" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-distancia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="index_files/figure-revealjs/fig-distancia-output-1.png" class="quarto-figure quarto-figure-center" width="1135" height="315">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distancia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: <span class="math inline">\(x = d(O,X)\)</span>, e <span class="math inline">\(x' = -d(O,X')\)</span>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="a-álgebra-árabe-e-indiana-verdade-que-se-calcula" class="slide level2">
+<h2>A álgebra árabe e indiana: verdade que se calcula</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Enquanto isso, em outra tradição matemática, o foco era resolver equações. O matemático indiano Brahmagupta, no século VII, já trabalhava com números negativos e soluções de equações quadráticas. Mas é o persa <strong>Muhammad ibn Musa al-Khwarizmi</strong>, no século IX, em Bagdá, quem sistematiza os métodos para resolver equações em uma obra chamada <em>Al-Jabr wal-Muqabala</em>, de onde vem, literalmente, a palavra “álgebra”. Al-Khwarizmi descreve procedimentos gerais para isolar uma incógnita, sem nunca desenhar uma única figura. Seu trabalho é puramente simbólico e procedimental: dado um problema com uma quantidade desconhecida, ele ensina os passos exatos para descobri-la.</p>
+</div><div class="column" style="width:50%;">
+<p>É uma matemática do algoritmo, não do desenho. Curiosamente, o nome de al-Khwarizmi também deu origem à palavra “algoritmo”, um indício de como sua contribuição se tornaria central para toda a matemática computacional que viria séculos depois. Até o início do século XVII, geometria e álgebra eram tratadas como disciplinas paralelas, cada uma com seu próprio vocabulário, suas próprias provas e suas próprias comunidades de estudiosos.</p>
+</div></div>
+</section>
+<section id="entre-os-dois-mundos" class="slide level2">
+<h2>Entre os dois mundos</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Um matemático treinado em geometria euclidiana podia passar a vida inteira sem jamais escrever uma equação algébrica para descrever uma curva; um algebrista treinado nos métodos árabes podia resolver equações cúbicas complexas sem nunca representar graficamente o que estava calculando.</p>
+<p>Essa separação não era um detalhe menor, ela limitava concretamente o que a matemática conseguia fazer. Problemas de astronomia, navegação e mecânica, que ganhavam urgência crescente no início da era moderna, muitas vezes exigiam calcular propriedades de curvas, algo que a geometria pura fazia com dificuldade e a álgebra pura nem sequer sabia representar.</p>
+</div><div class="column" style="width:50%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>Geometria (tradição grega)</th>
+<th>Álgebra (tradição árabe/indiana)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Objeto de estudo</td>
+<td>Figuras, formas, espaço</td>
+<td>Números, incógnitas, equações</td>
+</tr>
+<tr class="even">
+<td>Ferramenta principal</td>
+<td>Régua e compasso</td>
+<td>Procedimentos e regras de cálculo</td>
+</tr>
+<tr class="odd">
+<td>Forma de prova</td>
+<td>Construção e demonstração visual</td>
+<td>Manipulação simbólica passo a passo</td>
+</tr>
+<tr class="even">
+<td>Representação de uma curva</td>
+<td>Traçado geométrico</td>
+<td>Não existia representação direta</td>
+</tr>
+<tr class="odd">
+<td>Principais nomes</td>
+<td>Tales, Pitágoras, Euclides</td>
+<td>Al-Khwarizmi, Brahmagupta, Diofanto</td>
+</tr>
+<tr class="even">
+<td>Limitação central</td>
+<td>Sem linguagem para generalizar cálculos</td>
+<td>Sem linguagem para representar formas</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</section>
+<section id="descartes-constrói-a-ponte" class="slide level2">
+<h2>1637: Descartes constrói a ponte</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>A solução aparece em um apêndice quase modesto de uma obra filosófica. Em 1637, <strong>René Descartes</strong> publica o <em>Discurso do Método</em>, e em um de seus apêndices, <em>La Géométrie</em>, apresenta uma ideia que mudaria para sempre o destino das duas tradições: sobrepor ao plano geométrico um sistema de dois eixos numerados, perpendiculares entre si. A partir dessa construção simples, qualquer ponto do plano passa a corresponder a um par ordenado de números, e qualquer curva passa a corresponder a uma equação que relaciona esses números.</p>
+</div><div class="column" style="width:50%;">
+<p>Uma reta deixa de ser apenas um traço e passa a ser <code>y = ax + b</code>. Um círculo deixa de ser apenas um contorno e passa a ser <code>x² + y² = r²</code>. Descartes não estava simplesmente decorando a geometria com números, ele estava criando uma tradução completa entre dois idiomas que, até então, não tinham dicionário um para o outro. Essa tradução é o que hoje chamamos de <strong>Geometria Analítica</strong>.</p>
+</div></div>
+</section>
+<section id="fermat-a-mesma-ideia-um-caminho-paralelo" class="slide level2">
+<h2>Fermat: a mesma ideia, um caminho paralelo</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Curiosamente, Descartes não estava sozinho nessa descoberta. <strong>Pierre de Fermat</strong>, advogado e matemático amador em Toulouse, chega a conclusões muito semelhantes de forma essencialmente independente, também na década de 1630, embora seu trabalho só circule amplamente entre correspondentes e só seja publicado postumamente. Fermat parte de um ângulo ligeiramente diferente: ele busca generalizar os métodos da geometria grega, especialmente os trabalhos de Apolônio sobre cônicas, usando álgebra como ferramenta auxiliar.</p>
+</div><div class="column" style="width:50%;">
+<p>Enquanto Descartes tinha uma ambição mais filosófica, construir um método universal de raciocínio do qual a geometria analítica seria apenas uma aplicação, Fermat tinha uma motivação mais matemática e específica: entender melhor as curvas clássicas. Juntos, e sem terem trabalhado em conjunto, os dois fundam a mesma disciplina por caminhos distintos, o que é um padrão que se repetirá várias vezes nesta história.</p>
+</div></div>
+</section>
+<section id="por-que-a-geometria-analítica-precisava-existir" class="slide level2">
+<h2>Por que a geometria analítica precisava existir</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>A Geometria Analítica não nasce de um capricho estético, ela responde a uma necessidade concreta que se acumulava havia séculos. A astronomia do século XVII, impulsionada por Kepler e depois por Newton, precisava descrever órbitas, e órbitas são curvas complexas que a régua e o compasso não conseguem tratar com a precisão necessária. A navegação marítima, cada vez mais dependente de cálculos de trajetória, também exigia uma forma de calcular propriedades de curvas, comprimentos, inclinações, pontos de interseção, sem depender exclusivamente de construções manuais.</p>
+</div><div class="column" style="width:50%;">
+<p>Descartes tinha ainda uma ambição maior: ele sonhava com um método racional único, aplicável a qualquer problema, fosse ele geométrico, físico ou filosófico. A geometria analítica era, para ele, a prova de que esse método funcionava, a demonstração de que formas complicadas podiam ser domadas por equações simples. É esse casamento entre forma e número que abre caminho para tudo o que vem a seguir: sem ele, não haveria como representar geometricamente as soluções de um sistema de equações, e não haveria como perceber que sistemas de equações e transformações do espaço são, no fundo, a mesma coisa vista de ângulos diferentes.</p>
+</div></div>
+</section>
+<section id="sistemas-lineares-um-problema-muito-mais-antigo" class="slide level2">
+<h2>Sistemas lineares: um problema muito mais antigo</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Enquanto a geometria analítica resolvia o problema de representar curvas, um segundo problema, muito mais antigo, já rondava a matemática havia milênios: como resolver várias equações que precisam ser verdadeiras <strong>ao mesmo tempo</strong>. Esse tipo de problema aparece sempre que várias quantidades desconhecidas estão amarradas por várias condições simultâneas, repartir terras entre herdeiros, misturar grãos de preços diferentes, calcular impostos proporcionais.</p>
+</div><div class="column" style="width:50%;">
+<p>O caso chinês é particularmente notável: o texto <em>Jiuzhang Suanshu</em> (Nove Capítulos sobre a Arte Matemática), compilado por volta de 200 a.C., já descreve um procedimento de eliminação por colunas praticamente idêntico, em espírito, ao que hoje ensinamos como eliminação gaussiana, quase dois mil anos antes de Gauss nascer. O que faltava não era o problema, e sim uma <strong>linguagem geral</strong> capaz de tratá-lo de forma abstrata, aplicável a qualquer número de equações e incógnitas, independentemente do contexto prático específico.</p>
+</div></div>
+</section>
+<section id="linha-do-tempo" class="slide level2">
+<h2>Linha do tempo</h2>
+<p>A tabela a seguir mostra como diferentes civilizações, em épocas muito distantes entre si, já lidavam com versões desse mesmo problema, cada uma com seu próprio vocabulário e sem qualquer contato entre elas.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Época</th>
+<th>Civilização / Fonte</th>
+<th>Contribuição para sistemas lineares</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>~1800 a.C.</td>
+<td>Babilônia (tábuas cuneiformes)</td>
+<td>Problemas práticos com duas incógnitas resolvidos por métodos aritméticos</td>
+</tr>
+<tr class="even">
+<td>~300 a.C.</td>
+<td>Grécia (Euclides)</td>
+<td>Proporções e razões, sem tratamento algébrico direto de sistemas</td>
+</tr>
+<tr class="odd">
+<td>~200 a.C.</td>
+<td>China (<em>Jiuzhang Suanshu</em>)</td>
+<td>Método de eliminação por colunas, essencialmente equivalente à eliminação gaussiana</td>
+</tr>
+<tr class="even">
+<td>~250 d.C.</td>
+<td>Alexandria (Diofanto)</td>
+<td>Álgebra retórica para equações com uma ou mais incógnitas inteiras</td>
+</tr>
+<tr class="odd">
+<td>Século IX</td>
+<td>Bagdá (Al-Khwarizmi)</td>
+<td>Sistematização de métodos algébricos gerais para resolver equações</td>
+</tr>
+<tr class="even">
+<td>1750</td>
+<td>Suíça (Gabriel Cramer)</td>
+<td>Regra explícita para resolver sistemas lineares usando determinantes</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cramer-e-os-determinantes-um-atalho-antes-do-método-geral" class="slide level2">
+<h2>Cramer e os determinantes: um atalho antes do método geral</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>No século XVIII, antes mesmo de existir o conceito de matriz, os matemáticos já haviam encontrado uma forma elegante, embora limitada, de resolver sistemas lineares pequenos. Em 1750, o matemático genebrino <strong>Gabriel Cramer</strong> publica o que hoje conhecemos como a Regra de Cramer: uma fórmula que expressa a solução de um sistema linear diretamente em termos de razões entre determinantes. É importante notar a ordem histórica aqui, porque ela é contraintuitiva: os <strong>determinantes</strong>, números calculados a partir de um arranjo quadrado de coeficientes, surgem antes da ideia de tratar esse arranjo como um objeto algébrico próprio, a matriz.</p>
+</div><div class="column" style="width:50%;">
+<p>Leibniz já havia esboçado ideias semelhantes décadas antes, em correspondências privadas que só vieram à luz muito depois. A regra de Cramer é poderosa para sistemas pequenos, mas se torna rapidamente impraticável à medida que o número de equações cresce, o cálculo de determinantes grandes exige um número de operações que explode com o tamanho do sistema. Essa limitação prática é exatamente o que torna necessário um método mais eficiente, que virá poucas décadas depois.</p>
+</div></div>
+</section>
+<section id="gauss-e-a-eliminação-um-método-nascido-do-céu" class="slide level2">
+<h2>Gauss e a eliminação: um método nascido do céu</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>O nome mais associado à resolução sistemática de equações lineares é <strong>Carl Friedrich Gauss</strong>, embora, como vimos, o método em si já existisse na China havia dois milênios. A motivação de Gauss, porém, é reveladora do espírito desta história inteira: em 1801, o astrônomo Giuseppe Piazzi observa e depois perde de vista o planeta anão Ceres, recém-descoberto. Restam apenas algumas poucas observações de sua posição no céu. Gauss, então com vinte e quatro anos, desenvolve um método para prever a órbita completa de Ceres a partir de observações limitadas, um problema que, matematicamente, se reduz a resolver um grande sistema de equações lineares de forma eficiente e sistemática.</p>
+</div><div class="column" style="width:50%;">
+<p>O procedimento que ele organiza, hoje chamado de <strong>eliminação gaussiana</strong>, transforma qualquer sistema, por maior que seja, em uma sequência de passos simples e repetíveis: eliminar uma incógnita de cada vez, equação por equação, até restar uma única incógnita isolada, e então substituir de volta. Gauss não estava pensando em fundar uma disciplina chamada Álgebra Linear, ele queria, literalmente, encontrar um planeta perdido no céu noturno. Mas o método que ele sistematizou se tornaria, dali em diante, a espinha dorsal computacional de toda a área.</p>
+</div></div>
+</section>
+<section id="cayley-e-o-nascimento-da-matriz" class="slide level2">
+<h2>Cayley e o nascimento da matriz</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Por mais de um século, sistemas de equações continuaram sendo escritos equação por equação, sem que existisse um nome, ou um conjunto de regras algébricas próprias, para o bloco retangular de coeficientes que os representava. Isso muda em 1858, quando o matemático britânico <strong>Arthur Cayley</strong> publica <em>A Memoir on the Theory of Matrices</em>, propondo tratar essa tabela de números como um objeto matemático único, com suas próprias operações de soma e multiplicação. É essencial entender a motivação de Cayley, porque ela não vem de sistemas de equações, e sim de <strong>transformações</strong>: Cayley estava estudando como transformações lineares do espaço, rotações, projeções, escalonamentos, se comportam quando aplicadas em sequência, uma depois da outra.</p>
+</div><div class="column" style="width:50%;">
+<p>Ele percebe que a composição de duas transformações lineares corresponde exatamente à multiplicação das tabelas de números que as representam, e que essa multiplicação obedece regras específicas, diferentes da multiplicação comum de números, em particular, ela não é comutativa: a ordem em que se aplicam duas transformações importa. Pela primeira vez, um sistema inteiro de equações, ou uma transformação inteira do espaço, podia ser manipulado como se fosse um único objeto algébrico, sujeito a suas próprias regras consistentes.</p>
+</div></div>
+</section>
+<section id="hamilton-quando-o-número-não-bastava-mais" class="slide level2">
+<h2>Hamilton: quando o número não bastava mais</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Quase ao mesmo tempo em que Cayley desenvolvia sua teoria de matrizes, um outro problema, vindo da física, empurrava a matemática em uma direção paralela. O irlandês <strong>William Rowan Hamilton</strong> vinha, desde a década de 1830, tentando resolver um problema aparentemente simples: assim como os números complexos permitem representar rotações e escalas no plano bidimensional, deveria existir um sistema numérico equivalente para o espaço tridimensional. Hamilton passou anos tentando construir esse sistema com apenas três componentes, sem sucesso, até que, em um momento célebre, caminhando por uma ponte em Dublin em 16 de outubro de 1843, ele percebe que a solução exige <strong>quatro</strong> componentes, não três, e grava a fórmula fundamental dos <strong>quatérnions</strong> na pedra da ponte.</p>
+</div><div class="column" style="width:50%;">
+<p>Os quatérnions nunca se tornaram a ferramenta universal que Hamilton sonhava, mas o caminho que ele percorreu para chegar até eles obriga a matemática a formalizar, pela primeira vez de forma explícita, a ideia de uma grandeza que tem tanto <strong>magnitude</strong> quanto <strong>direção</strong>, o que hoje chamamos de vetor. A física newtoniana já lidava intuitivamente com forças e velocidades direcionais havia séculos, mas faltava um objeto matemático rigoroso para representá-las. Hamilton fornece esse objeto.</p>
+</div></div>
+</section>
+<section id="grassmann-a-ideia-esquecida-à-frente-do-seu-tempo" class="slide level2">
+<h2>Grassmann: a ideia esquecida à frente do seu tempo</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Quase simultaneamente, e de forma totalmente independente, o professor alemão <strong>Hermann Grassmann</strong>, um educador de ensino médio sem formação matemática formal avançada, publica em 1844 uma obra chamada <em>Die lineale Ausdehnungslehre</em> (A Teoria da Extensão Linear). O que Grassmann propõe é surpreendentemente moderno: em vez de se limitar a três dimensões como o espaço físico, ele constrói uma teoria de espaços com <strong>qualquer número de dimensões</strong>, onde entidades abstratas podem ser somadas entre si e multiplicadas por números, obedecendo regras consistentes de linearidade. Em essência, Grassmann havia inventado o conceito geral de <strong>espaço vetorial</strong> décadas antes de esse nome existir.</p>
+</div><div class="column" style="width:50%;">
+<p>O problema é que sua obra era escrita em um estilo extremamente abstrato e filosófico, quase incompreensível para os matemáticos de sua época, e por isso foi amplamente ignorada durante décadas. Grassmann morre em 1877 sem ver seu trabalho devidamente reconhecido, ele acabaria, inclusive, se voltando para a linguística, onde teve mais reconhecimento em vida. Décadas depois, quando a matemática finalmente desenvolve a linguagem necessária para apreciar sua obra, Grassmann é redescoberto como um dos verdadeiros pioneiros da Álgebra Linear moderna, um exemplo claro de uma ideia certa, mas adiantada demais para seu tempo.</p>
+</div></div>
+</section>
+<section id="peano-e-a-axiomatização-do-espaço-vetorial" class="slide level2">
+<h2>Peano e a axiomatização do espaço vetorial</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>A peça final que faltava para transformar um conjunto de ideias dispersas em uma disciplina matemática unificada vem do italiano <strong>Giuseppe Peano</strong>, já mais conhecido por sua axiomatização dos números naturais. Em 1888, Peano publica <em>Calcolo Geometrico</em>, no qual apresenta, pela primeira vez de forma inteiramente rigorosa e axiomática, a definição moderna de <strong>espaço vetorial</strong>: um conjunto de objetos que podem ser somados entre si e multiplicados por escalares, satisfazendo uma lista precisa de propriedades, associatividade, comutatividade da soma, existência de elemento neutro, existência de inverso aditivo, e assim por diante.</p>
+</div><div class="column" style="width:50%;">
+<p>Esse gesto de axiomatização é decisivo. A partir dele, deixa de importar se os “vetores” em questão são segmentos orientados no espaço físico, colunas de números, funções, ou qualquer outro tipo de objeto, desde que satisfaçam os axiomas, todas as ferramentas e teoremas da teoria se aplicam igualmente. É esse movimento de abstração que permite, finalmente, perceber que retas cartesianas, sistemas gaussianos, matrizes de Cayley e as construções de Hamilton e Grassmann são todos <strong>casos particulares de uma única estrutura subjacente</strong>.</p>
+</div></div>
+</section>
+<section id="o-século-xx-tudo-se-reconhece-como-uma-só-coisa" class="slide level2">
+<h2>O século XX: tudo se reconhece como uma só coisa</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Ao longo das primeiras décadas do século XX, matemáticos de diferentes tradições, incluindo a influente escola francesa reunida sob o pseudônimo coletivo <strong>Nicolas Bourbaki</strong>, consolidam e sistematizam essa visão unificada. A Álgebra Linear moderna, como é ensinada hoje em qualquer curso universitário, não nasce de um problema novo e específico, mas sim do reconhecimento retrospectivo de que vários problemas antigos e aparentemente distintos, representar curvas, resolver sistemas, compor transformações, descrever grandezas direcionais, eram, no fundo, manifestações diferentes de uma mesma estrutura matemática.</p>
+</div><div class="column" style="width:50%;">
+<p>Esse período também vê a extensão dessas ideias para espaços de dimensão infinita, através dos trabalhos de David Hilbert e Stefan Banach sobre espaços de funções, abrindo caminho para aplicações que vão muito além da geometria física tridimensional, incluindo, décadas mais tarde, os fundamentos matemáticos da mecânica quântica.</p>
+</div></div>
+</section>
+<section id="da-teoria-à-máquina-o-século-da-computação" class="slide level2">
+<h2>Da teoria à máquina: o século da computação</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>A segunda metade do século XX transforma a Álgebra Linear de uma teoria elegante em uma ferramenta computacional indispensável. Com o advento dos computadores digitais, a eliminação gaussiana, o mesmo método usado por Gauss para rastrear um planeta perdido, se torna a base de praticamente todo cálculo numérico em larga escala: simulações de engenharia, previsão do tempo, modelos econômicos.</p>
+</div><div class="column" style="width:50%;">
+<p>A multiplicação de matrizes, formalizada por Cayley para entender composição de transformações abstratas, se torna a operação central da computação gráfica, permitindo rotacionar, escalar e projetar objetos tridimensionais na tela de um computador milhões de vezes por segundo. Grandes avanços algorítmicos, como a decomposição em valores singulares e os métodos iterativos para sistemas de grande porte, surgem justamente da necessidade de aplicar essas ideias antigas a problemas com milhões, e depois bilhões, de variáveis simultâneas.</p>
+</div></div>
+</section>
+<section id="onde-tudo-isso-chega-hoje" class="slide level2">
+<h2>Onde tudo isso chega hoje</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>No presente, a Álgebra Linear é a infraestrutura invisível por trás de praticamente toda tecnologia digital que envolve dados, imagens ou aprendizado. Uma fotografia digital é, matematicamente, uma matriz de números representando intensidades de pixel; comprimi-la, filtrá-la ou aplicá-la a um efeito visual é, em essência, multiplicá-la por outras matrizes. Uma rede neural artificial, a base de sistemas de reconhecimento de voz, tradução automática e geração de texto, é, estrutural e literalmente, uma sequência de multiplicações de matrizes intercaladas com pequenas não linearidades.</p>
+</div><div class="column" style="width:50%;">
+<p>Sistemas de recomendação, motores de busca, simulações físicas e algoritmos de compressão de dados dependem, em algum nível fundamental, das mesmas ideias que nasceram da tentativa de Descartes de unir forma e número, da necessidade prática de Gauss de rastrear um planeta, e da abstração aparentemente inútil de Grassmann sobre espaços de qualquer dimensão. A pergunta que abriu esta história, <em>pode uma forma ser uma equação?</em>, continua sendo, quatro séculos depois, uma das perguntas mais produtivas já feitas na matemática.</p>
+</div></div>
+</section>
+<section id="síntese-por-que-ela-existe-afinal" class="slide level2">
+<h2>Síntese: por que ela existe, afinal</h2>
+<p>Se voltarmos ao início e perguntarmos, em uma única frase, por que a Álgebra Linear existe, a resposta não é uma única razão, mas o encontro de várias necessidades que amadureceram em paralelo ao longo de séculos.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Ela existe porque a forma e o número precisavam de uma linguagem comum, e Descartes e Fermat construíram essa ponte no século XVII. Ela existe porque sistemas de condições simultâneas apareciam na vida prática desde a Antiguidade, e precisavam de um método geral e eficiente, que a China antiga esboçou e Gauss sistematizou observando o céu.</p>
+</div><div class="column" style="width:50%;">
+<p>Ela existe porque transformações do espaço obedecem regras algébricas próprias, que Cayley soube capturar em um único objeto chamado matriz. Ela existe porque grandezas com direção não cabiam dentro de um único número, e Hamilton e Grassmann, cada um a seu modo, criaram a linguagem que faltava. E ela existe, sobretudo, porque em algum momento, com Peano, e depois com toda a matemática do século XX, percebeu-se que todas essas ideias, nascidas de problemas tão diferentes entre si, eram no fundo <strong>a mesma ideia</strong>, vista de ângulos diferentes ao longo do tempo.</p>
+</div></div>
+</section>
+<section id="referências" class="slide level2">
+<h2>Referências</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>ANTON, Howard; RORRES, Chris. <strong>Álgebra Linear com Aplicações</strong>. 10. ed.&nbsp;Porto Alegre: Bookman, 2012.</li>
+<li>AXLER, Sheldon. <strong>Linear Algebra Done Right</strong>. 4. ed.&nbsp;Cham: Springer, 2023. (Undergraduate Texts in Mathematics)</li>
+<li>LIMA, Elon Lages. <strong>Álgebra Linear</strong>. 1. ed.&nbsp;Rio de Janeiro: IMPA, 2014. (Coleção Matemática Universitária)</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>LIMA, Elon Lages. <strong>Geometria Analítica e Álgebra Linear</strong>. 1. ed.&nbsp;Rio de Janeiro: IMPA, 2014. (Coleção Matemática Universitária)</li>
+<li>STRANG, Gilbert. <strong>Linear Algebra and Its Applications</strong>. 4. ed.&nbsp;Belmont: Cengage Learning, 2006.</li>
+</ul>
+</div></div>
+</section>
+<section id="fim" class="slide level2">
+<h2>Fim</h2>
+<div class="center">
+<p>Obrigado.</p>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>Divergence Point</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true,"theme":"chalkboard"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 6.0e-2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <button id="dp-theme-toggle" class="dp-theme-toggle" type="button" aria-label="Alternar tema claro/escuro">
+      <svg class="icon-sun" viewbox="0 0 20 20" fill="none" aria-hidden="true">
+        <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.6"></circle>
+        <path d="M10 2v2M10 16v2M18 10h-2M4 10H2M15.5 4.5l-1.4 1.4M5.9 14.1l-1.4 1.4M15.5 15.5l-1.4-1.4M5.9 5.9L4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+      </svg>
+      <svg class="icon-moon" viewbox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M17 11.5A7 7 0 1 1 8.5 3a5.5 5.5 0 0 0 8.5 8.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
+      </svg>
+    </button>
+    <script>
+    (function () {
+      var btn = document.getElementById('dp-theme-toggle');
+      if (!btn) return;
+
+      // ---------- Alternância do Tema Claro/Escuro ----------
+      var BOARD = { dark: 'rgb(10, 12, 17)', light: 'rgb(241, 238, 231)' };
+
+      function paintBackground(theme) {
+        var bg = BOARD[theme] || BOARD.dark;
+        document.querySelectorAll('html, body, .reveal-viewport, .reveal').forEach(function (el) {
+          el.style.setProperty('background-color', bg, 'important');
+        });
+      }
+
+      function apply(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        try { localStorage.setItem('dp-theme', theme); } catch (e) {}
+        paintBackground(theme);
+      }
+
+      btn.addEventListener('click', function () {
+        var current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        apply(current === 'light' ? 'dark' : 'light');
+      });
+
+      paintBackground(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+
+      // ---------- Alinhamento no Topo (Lógica do Template Antigo) ----------
+      var BASE_WIDTH = 1280;
+      var BASE_HEIGHT = 720;
+      var NARROW_BREAKPOINT = 600;
+
+      function fitMobileCanvas() {
+        if (!window.Reveal || typeof Reveal.configure !== 'function') return;
+
+        var isNarrow = window.innerWidth < NARROW_BREAKPOINT;
+        var height = isNarrow
+          ? Math.round(BASE_WIDTH * (window.innerHeight / window.innerWidth))
+          : BASE_HEIGHT;
+
+        Reveal.configure({ width: BASE_WIDTH, height: height, center: false });
+        Reveal.layout();
+      }
+
+      var resizeTimer = null;
+      function scheduleFitMobileCanvas(delay) {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(fitMobileCanvas, delay || 120);
+      }
+
+      fitMobileCanvas();
+      window.addEventListener('resize', function () { scheduleFitMobileCanvas(120); });
+      window.addEventListener('orientationchange', function () { scheduleFitMobileCanvas(250); });
+
+      if (window.matchMedia) {
+        var mq = window.matchMedia('(max-width: ' + NARROW_BREAKPOINT + 'px)');
+        var onBreakpointChange = function () { scheduleFitMobileCanvas(0); };
+        if (mq.addEventListener) mq.addEventListener('change', onBreakpointChange);
+        else if (mq.addListener) mq.addListener(onBreakpointChange);
+      }
+    })();
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiada");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiada");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

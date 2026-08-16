@@ -71,6 +71,7 @@ html, body {
   font-family: 'Manrope', sans-serif;
   color: rgb(var(--chalk));
   font-size: 1.6em;
+
 }
 
 .reveal .slides {
@@ -104,6 +105,11 @@ html, body {
   margin-bottom: 0.6em;
 }
 
+.reveal p,
+.reveal li {
+  line-height: 1.5;
+}
+
 .reveal a {
   color: rgb(var(--azul));
   transition: color 0.15s ease;
@@ -127,6 +133,10 @@ html, body {
 .reveal pre code {
   background: transparent;
   color: rgb(var(--chalk));
+}
+
+.reveal figcaption {
+  text-align: center !important;
 }
 
 .reveal blockquote {
