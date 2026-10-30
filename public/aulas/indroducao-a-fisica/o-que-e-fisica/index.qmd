@@ -1,0 +1,556 @@
+---
+title: "O que é física?"
+subtitle: "Introdução à física"
+
+date: today
+date-format: "DD/MM/YYYY"
+lang: pt
+jupyter: python3
+title-slide-attributes:
+  data-background-image: ../../../src/logo.png   # logo na capa (slide de título gerado pelo Quarto)
+  data-background-size: 7.5em
+  data-background-position: top 60% center
+format:
+  revealjs:
+    chalkboard:
+      buttons: true
+      theme: chalkboard
+    theme: night                   # base escura nativa do Reveal
+    css: ../../../src/styles.css
+    scrollable: false
+    center: false                  # sem centralização vertical: evita o "pulo" do slide que sai
+
+    slide-number: c/t
+    html-math-method: katex
+    progress: true
+    controls: true
+    hash: true
+    transition: fade
+    background-transition: fade
+    highlight-style: nord
+    code-line-numbers: true
+    margin: 0.06
+    responsive: true
+    auto-stretch: false
+    footer: "Divergence Point"
+    include-in-header: ../../../src/theme-init.html
+    include-after-body: ../../../src/theme-toggle.html
+---
+
+## O que é Física? {auto-animate="true"}
+
+::::: columns
+:::: {.column width="58%"}
+Física (do grego antigo: φύσις, *physis*, "natureza") é a ciência que estuda a natureza e analisa as relações e propriedades dos seus fenômenos, além de descrever e explicar a maior parte das consequências deles.
+
+*— Wikipédia*
+
+Até o século XIX, o estudo da natureza era conhecido como **filosofia natural**. Hoje, a Física cobre escalas que vão do núcleo atômico (~$10^{-15}$ m) ao universo observável (~$10^{26}$ m).
+::::
+
+:::: {.column width="42%"}
+::: callout-note
+### Em uma frase
+
+Busca entender os comportamentos naturais do mundo, **das partículas elementares ao universo como um todo**.
+
+Para isso, combina **observação**, **experimento** e **matemática** em modelos que fazem previsões.
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Por que estudar Física?
+
+::::: columns
+:::: {.column width="50%"}
+::: callout-note
+### Entender o Universo!
+
+Desde a queda de uma maçã até a formação de galáxias.
+
+Por que o céu é azul? Como se forma um arco-íris? Por que existem as estações do ano?
+:::
+::::
+
+:::: {.column width="50%"}
+::: callout-tip
+### Inovação e Tecnologia!
+
+Motores, computadores, lasers, ressonância magnética, celulares...
+
+A mecânica quântica está por trás dos transistores. O GPS só é preciso porque corrige efeitos da relatividade.
+:::
+::::
+:::::
+
+Estudar Física também treina a **modelar** problemas, **estimar** ordens de grandeza e **testar** ideias, habilidades úteis em qualquer área.
+
+------------------------------------------------------------------------
+
+## Áreas da Física {.smaller auto-animate="true"}
+
+::::: columns
+::: {.column width="50%"}
+### Mecânica
+
+- Movimento
+- Forças
+- Gravidade
+- Energia e momento linear
+- Exemplo: *a trajetória de uma bola*
+:::
+
+::: {.column width="50%"}
+### Termodinâmica
+
+- Calor
+- Temperatura
+- Energia
+- Entropia e máquinas térmicas
+- Exemplo: *o funcionamento de uma geladeira*
+:::
+:::::
+
+::::: columns
+::: {.column width="50%"}
+### Eletromagnetismo
+
+- Eletricidade
+- Magnetismo
+- Luz
+- Ondas eletromagnéticas
+- Exemplo: *o rádio e o Wi-Fi*
+:::
+
+::: {.column width="50%"}
+### Física Moderna
+
+- Relatividade
+- Mecânica Quântica
+- Partículas
+- Física nuclear e cosmologia
+- Exemplo: *o Sol brilha por fusão nuclear*
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Método Científico {.smaller}
+
+::::: columns
+:::: {.column width="50%"}
+```{dot}
+//| fig-width: 5
+//| out-width: 100%
+//| echo: false
+
+digraph metodo {
+  graph [rankdir=TB, splines=true, nodesep=0.4, ranksep=0.3,
+         bgcolor=transparent, pad="0.2"]
+  node [shape=box, style="rounded,filled", fontname="Helvetica,Arial,sans-serif",
+        fontsize=16, width=2.4, height=0.5]
+  edge [fontname="Helvetica,Arial,sans-serif", fontsize=14,
+        color="#666666", penwidth=1.5]
+
+  obs [label="Observar o problema", fillcolor="#f6d87a"]
+  hip [label="Enunciar uma hipótese", fillcolor="#7fb7d9"]
+  exp [label="Testar com experimentos", fillcolor="#f6d87a"]
+  ana [label="Analisar resultados", fillcolor="#7fb7d9"]
+  dec [label="Hipótese\nconfirmada?", shape=diamond, width=2.2, height=1.1,
+       fillcolor="#b0d4e3"]
+  div [label="Divulgar resultados", fillcolor="#f6d87a"]
+  ten [label="Tentar novamente", fillcolor="#7fb7d9"]
+
+  obs -> hip -> exp -> ana -> dec
+  dec -> div [label=" Sim"]
+  dec -> ten [label=" Não"]
+  ten -> hip [constraint=false]
+}
+```
+::::
+
+:::: {.column width="50%"}
+1.  **Observar** um fenômeno ou problema.
+    - *Ex.: corpos leves e pesados caem juntos?*
+2.  **Enunciar** uma hipótese (explicação provisória).
+    - Deve ser **testável**: precisa existir um experimento capaz de refutá-la.
+3.  **Testar** com experimentos reprodutíveis.
+    - Controlar as variáveis e repetir as medidas.
+4.  **Analisar** os resultados e concluir.
+    - Comparar com a previsão e estimar as incertezas.
+5.  **Divulgar** — ou revisar a hipótese e tentar de novo.
+    - Outros cientistas revisam e tentam reproduzir.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## A Linguagem da Ciência
+
+Diferentes níveis de conhecimento científico:
+
+::::: columns
+:::: {.column width="50%"}
+### Fato
+
+Uma observação direta e objetiva que pode ser confirmada.
+
+*Exemplo:* "A maçã cai da árvore."
+
+Depende de medições confiáveis e repetíveis.
+::::
+
+:::: {.column width="50%"}
+### Hipótese
+
+Uma explicação provisória que precisa ser testada.
+
+*Exemplo:* "Objetos caem por causa de uma força invisível."
+
+Uma hipótese mais específica: "o tempo de queda não depende da massa." Ela pode ser testada soltando objetos de massas diferentes.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## A Linguagem da Ciência
+
+::::: columns
+:::: {.column width="50%"}
+### Lei
+
+Uma descrição (geralmente matemática) de **como** a natureza se comporta sob certas condições.
+
+*Exemplo:* $F = G \frac{m_1 m_2}{r^2}$ (Lei da Gravitação)
+
+Toda lei tem um **domínio de validade**: a de Newton funciona muito bem no dia a dia, mas falha perto de campos gravitacionais muito intensos.
+::::
+
+:::: {.column width="50%"}
+### Teoria
+
+Uma explicação ampla e robusta de **por que** a natureza se comporta assim, baseada em evidências.
+
+*Exemplo:* Relatividade Geral (curvatura do espaço-tempo).
+
+Em ciência, "teoria" não é palpite. A Relatividade Geral previu as ondas gravitacionais, detectadas diretamente em 2015.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## A Linguagem da Ciência
+
+::::: columns
+:::: {.column width="50%"}
+### Modelo
+
+Uma representação simplificada para facilitar a compreensão ou o cálculo.
+
+*Exemplo:* Modelo atômico de Bohr.
+
+*Outro exemplo:* tratar um carro como um ponto material ao estudar seu movimento em uma estrada.
+
+Todo modelo tem **limites**: o de Bohr explica bem o hidrogênio, mas não átomos com muitos elétrons.
+::::
+
+:::: {.column width="50%"}
+::: callout-important
+### Cuidado com a confusão!
+
+Uma **Teoria** nunca "vira" uma **Lei**.
+
+- A **Lei** descreve o fenômeno (o "que" acontece).
+- A **Teoria** explica o mecanismo (o "porquê" acontece).
+
+*Exemplo:* a lei de Newton descreve como a gravidade age; a teoria de Einstein explica por que isso acontece.
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Unidades de Medida
+
+::::: columns
+:::: {.column width="55%"}
+A Física é uma **ciência experimental** fundamentada na reprodutibilidade. Suas conclusões baseiam-se na medição rigorosa, e a validade de um experimento depende da capacidade de outros cientistas replicarem seus resultados em qualquer lugar do mundo.
+
+*Exemplo:* em 1999, a sonda **Mars Climate Orbiter** foi perdida por uma confusão entre unidades inglesas e métricas.
+::::
+
+:::: {.column width="45%"}
+### Sistema Internacional de Unidades (SI)
+
+A linguagem padrão da ciência.
+
+Adotado em quase todo o mundo e mantido pelo BIPM. Desde 2019, suas unidades são definidas a partir de **constantes da natureza**.
+
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Unidades Fundamentais (SI)
+
+::::: columns
+::: {.column width="50%"}
+- **Comprimento:** Metro (m)
+- **Massa:** Quilograma (kg)
+- **Tempo:** Segundo (s)
+- **Corrente Elétrica:** Ampere (A)
+:::
+
+::: {.column width="50%"}
+- **Temperatura:** Kelvin (K)
+- **Quantidade de Substância:** Mol (mol)
+- **Intensidade Luminosa:** Candela (cd)
+:::
+:::::
+
+As demais unidades são **derivadas** das fundamentais. Por exemplo, o newton: $1\ \text{N} = 1\ \text{kg·m/s}^2$.
+
+------------------------------------------------------------------------
+
+## Prefixos do Sistema Internacional (SI)
+
+Para escrever números muito grandes ou muito pequenos, usamos prefixos:
+
+::::: columns
+:::: {.column width="50%"}
+| Prefixo       |   Fator    | Exemplo   |
+|:--------------|:----------:|:----------|
+| **Tera** (T)  | $10^{12}$  | TB        |
+| **Giga** (G)  | $10^{9}$   | GB        |
+| **Mega** (M)  | $10^{6}$   | MW        |
+| **Quilo** (k) | $10^{3}$   | km        |
+| **Hecto** (h) | $10^{2}$   | hPa       |
+::::
+
+:::: {.column width="50%"}
+| Prefixo       |   Fator    | Exemplo   |
+|:--------------|:----------:|:----------|
+| **Centi** (c) | $10^{-2}$  | cm        |
+| **Mili** (m)  | $10^{-3}$  | mg        |
+| **Micro** (μ) | $10^{-6}$  | μm        |
+| **Nano** (n)  | $10^{-9}$  | nm        |
+| **Pico** (p)  | $10^{-12}$ | pF        |
+::::
+:::::
+
+*Conversão:* $5\ \text{mm} = 5 \times 10^{-3}\ \text{m}$ e $2\ \text{GB} = 2 \times 10^{9}\ \text{B}$.
+
+------------------------------------------------------------------------
+
+## Grandezas escalares e vetoriais 
+
+A Física separa as grandezas em dois grupos, conforme a informação necessária para entendê-las:
+
+::::: columns
+::: {.column width="50%"}
+### **Escalar**
+
+- **Definição:** só um **número** e uma **unidade**.
+- **Pergunta:** *"Quanto?"*
+- **Soma:** algébrica ($2kg + 2kg = 4kg$).
+- **Exemplo:** "a sala está a 25 °C" já diz tudo.
+:::
+
+::: {.column width="50%"}
+### **Vetorial**
+
+- **Definição:** **módulo**, **direção** e **sentido**.
+- **Pergunta:** *"Para onde?"*
+- **Soma:** geométrica (depende do ângulo).
+- **Exemplo:** $3$ m a leste e depois $4$ m ao norte resultam em $5$ m, não em $7$ m.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Tabela de Grandezas {.smaller auto-animate="true"}
+
+::::: columns
+::: {.column width="50%"}
+### Escalares
+
+- Massa ($m$): kg
+- Tempo ($t$): s
+- Temperatura ($T$): K
+- Energia ($E$): J
+- Distância percorrida ($d$): m
+- Potencial elétrico ($V$): V
+- Pressão ($P$): Pa
+:::
+
+::: {.column width="50%"}
+### Vetoriais
+
+- Deslocamento ($\vec{\Delta s}$): m
+- Velocidade ($\vec{v}$): m/s
+- Aceleração ($\vec{a}$): m/s²
+- Força ($\vec{F}$): N
+- Campo elétrico ($\vec{E}$): N/C
+- Momento linear ($\vec{p}$): kg·m/s
+- Campo magnético ($\vec{B}$): T
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Representações gráficas
+
+::::: columns
+:::: {.column width="50%"}
+Um aspecto importante da Física é a busca de relações entre diferentes quantidades, isto é, a determinação de como o valor de uma quantidade afeta o valor de outra. Essa busca é importante também em outros ramos das Ciências.
+
+Um gráfico mostra o **padrão** da relação de relance. Exemplos: posição × tempo, tensão × corrente, temperatura × tempo.
+::::
+
+:::: {.column width="50%"}
+### Função linear (ou de 1º grau)
+
+Relaciona duas grandezas que crescem ou decrescem de forma constante. O coeficiente $a$ define a taxa de variação (proporcionalidade); o coeficiente $b$ ajusta o ponto de partida, o valor de $y$ quando $x = 0$.
+
+*Exemplo:* no movimento uniforme, $s = s_0 + vt$. Aqui $v$ é o coeficiente angular e $s_0$ é o coeficiente linear.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Gráfico da função linear {.smaller}
+
+$$f(x) = y = ax + b$$
+
+::::: columns
+:::: {.column width="62%"}
+```{python}
+#| echo: false
+import sys
+sys.path.append("../../../src")   # onde está o dp_style.py
+
+import plotly.graph_objects as go
+from plotly.offline import get_plotlyjs
+from IPython.display import HTML, display
+import dp_style
+
+a0, b0 = 1.0, 0.0
+xs = [-10, 10]
+
+fig = go.Figure()
+# traço 0: a reta (só 2 pontos bastam)
+fig.add_trace(go.Scatter(
+    x=xs, y=[a0 * x + b0 for x in xs], mode="lines",
+    line=dict(color=dp_style.PALETTE["azul"], width=4),
+    hovertemplate="x = %{x:.1f}<br>y = %{y:.1f}<extra></extra>",
+))
+# traço 1: ponto de interseção com o eixo Y
+fig.add_trace(go.Scatter(
+    x=[0], y=[b0], mode="markers",
+    marker=dict(color=dp_style.PALETTE["vermelho"], size=11),
+    hovertemplate="(0, %{y:.1f})<extra>intercepto b</extra>",
+))
+fig.update_xaxes(range=[-10, 10], title="x", zeroline=True, zerolinewidth=2,
+                 constrain="domain")
+fig.update_yaxes(range=[-10, 10], title="y", zeroline=True, zerolinewidth=2,
+                 scaleanchor="x", scaleratio=1, constrain="domain")
+fig = dp_style.plotly(fig, legend=False)
+fig.update_layout(height=420, margin=dict(l=40, r=10, t=10, b=40))
+
+# O Reveal só dimensiona o gráfico quando o slide aparece
+resize_js = """
+(function () {
+  var g = document.getElementById('graf-linear');
+  function r() { if (g && window.Plotly) Plotly.Plots.resize(g); }
+  var t = setInterval(function () {
+    if (window.Reveal && Reveal.on) {
+      clearInterval(t);
+      Reveal.on('ready', r); Reveal.on('slidechanged', r); Reveal.on('resize', r);
+      r();
+    }
+  }, 200);
+  window.addEventListener('resize', r);
+})();
+"""
+
+# A biblioteca plotly.js vai embutida (funciona offline), mas em uma saída
+# SEPARADA do gráfico. Se a biblioteca e o gráfico saem juntos
+# (to_html(include_plotlyjs=True)), o Quarto tira tudo do slide e joga o
+# gráfico fora do .reveal, e ele aparece em todas as páginas.
+display(HTML("<script>" + get_plotlyjs() + "</script>"))
+display(HTML(fig.to_html(
+    include_plotlyjs=False, full_html=False, div_id="graf-linear",
+    default_height="420px", default_width="100%",
+    config={"responsive": True, "displayModeBar": False},
+    post_script=resize_js,
+)))
+```
+::::
+
+:::: {.column width="38%"}
+```{python}
+#| echo: false
+HTML("""
+<div class="dp-controles">
+  <div class="dp-eq">y = <span id="dp-eq-txt">1.0x + 0.0</span></div>
+  <label>Coeficiente angular (a): <b id="dp-a-val">1.0</b>
+    <input id="dp-a-in" type="range" min="-5" max="5" step="0.1" value="1">
+  </label>
+  <label>Coeficiente linear (b): <b id="dp-b-val">0.0</b>
+    <input id="dp-b-in" type="range" min="-10" max="10" step="0.5" value="0">
+  </label>
+</div>
+<style>
+  .dp-controles { font-size: 0.8em; }
+  .dp-controles .dp-eq { font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 1.1em; margin-bottom: 0.6em; color: rgb(var(--azul)); }
+  .dp-controles label { display: block; margin: 0.6em 0; }
+  .dp-controles input[type=range] { width: 100%; accent-color: rgb(var(--azul)); }
+</style>
+<script>
+(function () {
+  var ia = document.getElementById('dp-a-in'), ib = document.getElementById('dp-b-in');
+  function upd() {
+    var a = parseFloat(ia.value), b = parseFloat(ib.value);
+    var g = document.getElementById('graf-linear');
+    if (g && window.Plotly && g.data) {
+      Plotly.restyle(g, {y: [[-10 * a + b, 10 * a + b]]}, [0]);
+      Plotly.restyle(g, {y: [[b]]}, [1]);
+    }
+    document.getElementById('dp-a-val').textContent = a.toFixed(1);
+    document.getElementById('dp-b-val').textContent = b.toFixed(1);
+    document.getElementById('dp-eq-txt').textContent =
+      a.toFixed(1) + 'x ' + (b < 0 ? '\\u2212 ' : '+ ') + Math.abs(b).toFixed(1);
+  }
+  ia.addEventListener('input', upd);
+  ib.addEventListener('input', upd);
+})();
+</script>
+""")
+```
+
+- $a > 0$: reta crescente. $a < 0$: decrescente. $a = 0$: horizontal.
+- $b$ desloca a reta para cima ou para baixo, sem mudar a inclinação.
+- Se $b = 0$, $y$ é diretamente proporcional a $x$.
+::::
+:::::
+
+# Perguntas?
+
+```{=html}
+<script>
+// O Quarto marca o slide de título com "center", e o Reveal então o posiciona
+// no meio da tela enquanto os demais ficam no topo (isso causava o "pulo").
+(function () {
+  var t = setInterval(function () {
+    if (window.Reveal && Reveal.isReady && Reveal.isReady()) {
+      clearInterval(t);
+      var s = document.getElementById('title-slide');
+      if (s) { s.classList.remove('center'); Reveal.layout(); }
+    }
+  }, 100);
+})();
+</script>
+```

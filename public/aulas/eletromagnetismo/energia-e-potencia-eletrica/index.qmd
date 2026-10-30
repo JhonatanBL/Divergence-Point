@@ -1,0 +1,636 @@
+---
+title: "Energia e Potência Elétrica"
+subtitle: "Eletromagnetismo"
+
+
+date: 2026-04-25
+date-format: "DD/MM/YYYY"
+lang: pt
+title-slide-attributes:
+  data-background-image: ../../../src/logo.png # logo na capa (slide de título gerado pelo Quarto)
+  data-background-size: 7.5em
+  data-background-position: top 60% center
+format:
+  revealjs:
+    chalkboard:
+      buttons: true
+      theme: chalkboard
+    theme: night # base escura nativa do Reveal
+    css: ../../../src/styles.css
+    scrollable: false
+    center: false # sem centralização vertical: evita o "pulo" do slide que sai
+
+    slide-number: c/t
+    html-math-method: katex
+    progress: true
+    controls: true
+    hash: true
+    transition: fade
+    background-transition: fade
+    highlight-style: nord
+    code-line-numbers: true
+    margin: 0.06
+    responsive: true
+    auto-stretch: false
+    footer: "Divergence Point"
+    include-in-header: ../../../src/theme-init.html
+    include-after-body: ../../../src/theme-toggle.html
+---
+
+## Relembrando: Corrente e Tensão
+
+::::: columns
+:::: {.column width="50%"}
+### Tensão Elétrica ($U$)
+
+- Também chamada de **ddp** (diferença de potencial)
+- Unidade: **Volt (V)**
+- É a "força" que empurra os elétrons
+- Tomada residencial: **127 V** ou **220 V**
+
+$$\boxed{U = \frac{E_p}{q}}$$
+::::
+
+:::: {.column width="50%"}
+### Corrente Elétrica ($i$)
+
+- Fluxo ordenado de cargas elétricas
+- Unidade: **Ampère (A)**
+- É a "quantidade" de elétrons passando
+- Corrente de um chuveiro: ~**15 A** a 220 V
+
+$$\boxed{i = \frac{\Delta q}{\Delta t}}$$
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Energia
+
+::::: columns
+:::: {.column width="62%"}
+Energia é uma grandeza física que se conserva e pode ser transformada de uma forma em outra.
+
+Uma carga que se move através de um circuito gasta energia, a menos que o meio seja um supercondutor. Isso pode resultar no aquecimento do circuito ou no giro de um motor. A taxa com a qual a energia elétrica é convertida em outra forma, tal como energia mecânica, calor ou luz, é chamada de **potência elétrica**.
+::::
+
+:::: {.column width="38%"}
+![](energia.jpg)
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Origem da energia que usamos 
+
+::: callout-note
+A radiação que chega do Sol é a principal fonte de energia do nosso planeta.
+:::
+
+::::: columns
+:::: {.column width="50%"}
+### Sol atual
+
+- Crescimento das plantas: dá origem à energia química nos vegetais.
+- Aquece e ilumina a superfície terrestre: usamos em painéis e baterias solares.
+
+### Sol recente
+
+- Aqueceu o ar, produzindo os ventos: energia cinética, usada nas usinas eólicas.
+- Formou as nuvens por evaporação: energia potencial gravitacional e cinética, usadas nas usinas hidrelétricas.
+::::
+
+:::: {.column width="50%"}
+### Sol passado
+
+- Fez as plantas crescerem: energia química armazenada nas madeiras.
+
+### Sol muito antigo
+
+- Alimentou plantas e animais: energia armazenada nos combustíveis fósseis (carvão, petróleo e gás natural).
+
+### Formação do Universo
+
+- Deu origem à energia armazenada nos átomos. A energia nuclear é liberada na fissão do urânio e na fusão de elementos leves.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Potência Elétrica: Definição
+
+::::: columns
+:::: {.column width="55%"}
+**Potência** é a taxa com que a energia elétrica é **convertida** em outras formas de energia por unidade de tempo.
+
+$$\boxed{P = \frac{E}{\Delta t}}$$
+
+Onde:
+
+- **P** = Potência → Watts (W) ou quilowatts (kW)
+- **E** = Energia → Joules (J)
+- **Δt** = Intervalo de tempo → segundos (s)
+::::
+
+:::: {.column width="45%"}
+::: callout-tip
+### Analogia
+
+Se correr uma maratona em 2 h é mais "potente" do que em 5 h, um dispositivo de 2000 W "trabalha" mais rápido que um de 500 W!
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Fórmulas da Potência Elétrica
+
+A partir da Lei de Ohm ($U = R \cdot i$), derivamos **três formas** equivalentes:
+
+::::: columns
+::: {.column width="33%"}
+::: formula-destaque
+**Fórmula 1**
+
+$$P = U \cdot i$$
+
+*Tensão × Corrente*
+:::
+:::
+
+::: {.column width="33%"}
+::: formula-destaque
+**Fórmula 2**
+
+$$P = R \cdot i^2$$
+
+*Resistência × Corrente²*
+:::
+:::
+
+::: {.column width="34%"}
+::: formula-destaque
+**Fórmula 3**
+
+$$P = \frac{U^2}{R}$$
+
+*Tensão² ÷ Resistência*
+:::
+:::
+:::::
+
+::: callout-important
+### Cuidado!
+
+As três fórmulas são equivalentes: use aquela em que você tem os dados disponíveis!
+:::
+
+------------------------------------------------------------------------
+
+## De onde vêm essas fórmulas?
+
+Sabemos que $P = U \cdot i$ e, pela Lei de Ohm, $U = R \cdot i$.
+
+::::: columns
+:::: {.column width="50%"}
+::: passo
+**Substituindo** $U$ na fórmula:
+
+$$P = (R \cdot i) \cdot i \quad \Rightarrow \quad \boxed{P = R \cdot i^2}$$
+:::
+::::
+
+:::: {.column width="50%"}
+::: passo
+**Isolando** $i = \dfrac{U}{R}$ e substituindo:
+
+$$P = U \cdot \frac{U}{R} \quad \Rightarrow \quad \boxed{P = \frac{U^2}{R}}$$
+:::
+::::
+:::::
+
+::: resposta
+ As três fórmulas descrevem a **mesma coisa**: escolha conforme os dados do problema!
+:::
+
+------------------------------------------------------------------------
+
+## Potências de aparelhos comuns 
+
+::::: columns
+:::: {.column width="58%"}
+| Aparelho                       | Potência típica |
+|:-------------------------------|:----------------|
+| Lâmpada LED                 | 9 a 15 W        |
+| Lâmpada incandescente       | 60 a 100 W      |
+| TV 50"                      | 80 a 150 W      |
+| Computador                  | 200 a 600 W     |
+| Chuveiro elétrico           | 4.000 a 7.500 W |
+| Ar-condicionado 12.000 BTU  | ~1.400 W        |
+| Forno elétrico              | 1.500 a 2.500 W |
+| Máquina de lavar            | 1.000 a 1.500 W |
+::::
+
+:::: {.column width="42%"}
+::: callout-tip
+### O chuveiro é o vilão da conta de luz!
+
+Com ~6.000 W, 30 min por dia = 90 kWh por mês por pessoa!
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Exemplo Resolvido 1
+
+::::: columns
+:::: {.column width="45%"}
+::: enunciado
+**Problema:** um ferro de passar roupa tem resistência de 40 Ω e é ligado a uma tomada de 220 V. Calcule a potência desse ferro e a corrente elétrica que o percorre.
+:::
+
+**Dados:**
+
+- $R = 40\,\Omega$
+- $U = 220\,\text{V}$
+::::
+
+:::: {.column width="55%"}
+**Resolução:**
+
+$$P = \frac{U^2}{R} = \frac{(220)^2}{40} = \frac{48.400}{40} = \boxed{1.210\,\text{W}}$$
+
+$$i = \frac{U}{R} = \frac{220}{40} = \boxed{5{,}5\,\text{A}}$$
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Energia Elétrica: Definição
+
+::::: columns
+:::: {.column width="55%"}
+**Energia elétrica** é a quantidade total de trabalho realizado por um dispositivo elétrico durante um intervalo de tempo.
+
+$$\boxed{E = P \cdot \Delta t}$$
+
+Onde:
+
+- **E** = Energia → Joules (J) ou **kWh**
+- **P** = Potência → Watts (W) ou kW
+- **Δt** = Tempo → segundos (s) ou horas (h)
+::::
+
+:::: {.column width="45%"}
+::: callout-note
+### Relação fundamental
+
+Se potência é a **taxa** de consumo de energia, então energia é o **acúmulo** dessa taxa ao longo do tempo!
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Joule × Quilowatt-hora (kWh)
+
+::::: columns
+:::: {.column width="50%"}
+### Joule (J)
+
+- Unidade do SI
+- Usado em cálculos teóricos
+- 1 J = energia para levantar ~102 g por 1 metro
+
+$$1\,\text{J} = 1\,\text{W} \cdot 1\,\text{s}$$
+::::
+
+:::: {.column width="50%"}
+### Quilowatt-hora (kWh)
+
+- Unidade **comercial** de energia
+- Usada nas contas de luz
+- Muito mais prática para consumos residenciais
+
+$$1\,\text{kWh} = 1.000\,\text{W} \cdot 3.600\,\text{s}$$
+
+$$\boxed{1\,\text{kWh} = 3{,}6 \times 10^6\,\text{J}}$$
+::::
+:::::
+
+::: callout-tip
+ **1 kWh** é a energia consumida por um aparelho de **1.000 W** funcionando por **1 hora**. Exemplo: 10 lâmpadas de 100 W acesas por 1 hora = 1 kWh.
+:::
+
+------------------------------------------------------------------------
+
+## Visualizando 1 kWh
+
+::::: columns
+:::: {.column width="55%"}
+- **111 horas** de uma lâmpada LED de 9 W
+- **7 horas** de uma TV de 150 W
+- **2 horas** de um computador gamer de 500 W
+- **10 minutos** de chuveiro de 6.000 W
+::::
+
+:::: {.column width="45%"}
+::: callout-warning
+### Moral da história
+
+O chuveiro consome em 10 minutos o mesmo que uma lâmpada LED consome em 111 horas!
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Calculando a Conta de Luz
+
+::::: columns
+:::: {.column width="50%"}
+**Fórmula do custo:**
+
+$$\boxed{\text{Custo} = P_{(kW)} \times t_{(h)} \times \text{tarifa}_{(R\$/kWh)}}$$
+
+**Tarifa média no Brasil (2025):** ~R\$ 0,80 a R\$ 1,10 por kWh
+::::
+
+:::: {.column width="50%"}
+::: callout-note
+### Exemplo
+
+Uma TV de 200 W fica ligada 5 horas por dia durante 30 dias.
+
+$$E = 0{,}2\,\text{kW} \times 5\,\text{h} \times 30 = 30\,\text{kWh}$$
+
+$$\text{Custo} = 30\,\text{kWh} \times R\$\,0{,}90 = \boxed{R\$\,27{,}00}$$
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Exemplo Resolvido 2
+
+::::: columns
+:::: {.column width="45%"}
+::: enunciado
+Um chuveiro elétrico de 6.000 W é usado por 20 minutos diários durante um mês (30 dias). Considerando a tarifa de energia de R\$ 0,80/kWh, qual o custo mensal com o chuveiro?
+:::
+
+**Dados:**
+
+- $P = 6.000\,\text{W} = 6\,\text{kW}$
+- $t = 20\,\text{min} = \frac{1}{3}\,\text{h}$
+- 30 dias, tarifa = R\$ 0,80/kWh
+::::
+
+:::: {.column width="55%"}
+**Energia mensal:**
+
+$$E = 6\,\text{kW} \times \frac{1}{3}\,\text{h} \times 30 = 60\,\text{kWh}$$
+
+**Custo:**
+
+$$\text{Custo} = 60 \times 0{,}80 = \boxed{R\$\,48{,}00\text{/mês}}$$
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Efeito Joule
+
+Quando a corrente elétrica passa por um resistor, parte da energia elétrica é convertida em **calor**. Esse fenômeno é chamado de **Efeito Joule**.
+
+$$\boxed{Q = P \cdot \Delta t = R \cdot i^2 \cdot \Delta t}$$
+
+::::: columns
+:::: {.column width="50%"}
+### Aplicações úteis
+
+- Torradeira
+- Chuveiro elétrico
+- Ferro de passar
+- Lâmpada incandescente
+::::
+
+:::: {.column width="50%"}
+### Efeitos indesejados
+
+- Aquecimento de fios
+- Sobrecarga elétrica
+- Curto-circuito
+- Desperdício de energia
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Associação de Resistores e Potência
+
+::: callout-important
+### Conceito importante para o vestibular!
+
+A potência dissipada **não é a mesma** para todos os resistores, mesmo na mesma fonte!
+:::
+
+::::: columns
+:::: {.column width="50%"}
+### Série: mesma corrente
+
+$$P = R \cdot i^2$$
+
+**Maior R → maior P**
+
+ Quem tem mais resistência esquenta mais!
+::::
+
+:::: {.column width="50%"}
+### Paralelo: mesma tensão
+
+$$P = \frac{U^2}{R}$$
+
+**Menor R → maior P**
+
+ Quem tem menos resistência consome mais!
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Exemplo Resolvido 3
+
+::::: columns
+:::: {.column width="45%"}
+::: enunciado
+Dois resistores, $R_1 = 10\,\Omega$ e $R_2 = 20\,\Omega$, são ligados **em série** a uma bateria de 30 V. Calcule a potência dissipada em cada um.
+:::
+
+**Resistência total:** $R_T = 10 + 20 = 30\,\Omega$
+
+**Corrente:** $i = \dfrac{U}{R_T} = \dfrac{30}{30} = 1\,\text{A}$
+::::
+
+:::: {.column width="55%"}
+**Potências:**
+
+$$P_1 = R_1 \cdot i^2 = 10 \times 1^2 = \boxed{10\,\text{W}}$$
+
+$$P_2 = R_2 \cdot i^2 = 20 \times 1^2 = \boxed{20\,\text{W}}$$
+
+*$R_2$ dissipa o dobro de calor que $R_1$*, o que faz sentido, pois tem o dobro da resistência!
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Macetes para o Vestibular
+
+::::: columns
+::: {.column width="50%"}
+::: dica
+** Unidades**
+
+Sempre converta W → kW (÷ 1000) e min → h (÷ 60) antes de calcular kWh!
+:::
+
+::: dica
+** Lei de Ohm**
+
+$U = R \cdot i$ é sua melhor amiga! Sempre que faltar dado, use ela para encontrá-lo.
+:::
+:::
+
+::: {.column width="50%"}
+::: dica
+** Série vs Paralelo**
+
+Série: mesma $i$ → use $P = R \cdot i^2$
+
+Paralelo: mesma $U$ → use $P = U^2/R$
+:::
+
+::: dica
+** Conta de Luz**
+
+Custo = kWh × tarifa. Converta tudo para kW e horas primeiro!
+:::
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Questão 1
+
+::::: columns
+:::: {.column width="42%"}
+::: enunciado
+Um consumidor deseja substituir seu chuveiro elétrico de 5.500 W (220 V) por um chuveiro mais econômico de 3.500 W (220 V). Quantos ampères de corrente elétrica cada chuveiro consome?
+:::
+::::
+
+:::: {.column width="58%"}
+**Chuveiro 1 (5.500 W):**
+
+$$i_1 = \frac{P}{U} = \frac{5.500}{220} = \boxed{25\,\text{A}}$$
+
+**Chuveiro 2 (3.500 W):**
+
+$$i_2 = \frac{P}{U} = \frac{3.500}{220} \approx \boxed{15{,}9\,\text{A}}$$
+
+::: callout-tip
+O chuveiro mais econômico reduz a corrente em ~36%! Isso também reduz o risco de sobrecarga no circuito.
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Questão 2
+
+::::: columns
+:::: {.column width="42%"}
+::: enunciado
+Uma lâmpada incandescente de 100 W e uma lâmpada LED de 10 W produzem a mesma luminosidade. Ambas ficam ligadas 6 horas por dia, durante 30 dias. Calcule:
+
+a) A energia consumida por cada lâmpada no mês (em kWh)
+
+b) A economia em reais, com tarifa de R\$ 0,90/kWh
+:::
+::::
+
+:::: {.column width="58%"}
+**a) Energia consumida:**
+
+$$E_{\text{inc}} = \frac{100}{1000} \times 6 \times 30 = 18\,\text{kWh}$$
+
+$$E_{\text{LED}} = \frac{10}{1000} \times 6 \times 30 = 1{,}8\,\text{kWh}$$
+
+**b) Economia:**
+
+$$\Delta E = 18 - 1{,}8 = 16{,}2\,\text{kWh}$$
+
+$$\text{Economia} = 16{,}2 \times 0{,}90 = \boxed{R\$\,14{,}58\text{/mês}}$$
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Questão 3
+
+::::: columns
+:::: {.column width="42%"}
+::: enunciado
+Três resistores idênticos de 6 Ω cada são ligados: $R_1$ em série com o paralelo de $R_2$ e $R_3$, tudo conectado a uma bateria ideal de 12 V. Qual a potência total dissipada no circuito?
+:::
+::::
+
+:::: {.column width="58%"}
+**Resistência equivalente do paralelo:**
+
+$$R_{23} = \frac{6 \times 6}{6 + 6} = 3\,\Omega$$
+
+**Resistência total:**
+
+$$R_T = R_1 + R_{23} = 6 + 3 = 9\,\Omega$$
+
+**Potência total:**
+
+$$P_T = \frac{U^2}{R_T} = \frac{12^2}{9} = \frac{144}{9} = \boxed{16\,\text{W}}$$
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Resumo Geral
+
+| Grandeza    | Símbolo | Unidade SI | Unidade Comercial |
+|:------------|:-------:|:----------:|:-----------------:|
+| Potência    | $P$   | Watt (W)  | kW         |
+| Energia     | $E$   | Joule (J)  | kWh        |
+| Tensão      | $U$ ou $V$ | Volt (V)  | V         |
+| Corrente    | $i$   | Ampère (A) | A         |
+| Resistência | $R$   | Ohm (Ω)   | Ω         |
+
+**Fórmulas-chave:**
+
+$$P = U \cdot i = R \cdot i^2 = \frac{U^2}{R} \qquad E = P \cdot \Delta t \qquad 1\,\text{kWh} = 3{,}6 \times 10^6\,\text{J}$$
+
+------------------------------------------------------------------------
+
+## Para casa: Lista de Exercícios 
+
+1. Um aparelho de ar-condicionado de 1.200 W fica ligado 8 h/dia por 30 dias. Qual o custo mensal com tarifa de R\$ 0,85/kWh?
+2. Uma geladeira de 150 W funciona em média 12 h/dia. Em um ano (365 dias), quantos kWh ela consome?
+3. Dois resistores ($R_1 = 4\,\Omega$ e $R_2 = 12\,\Omega$) são ligados **em paralelo** a uma bateria de 24 V. Calcule a potência dissipada em cada resistor.
+4. **(Desafio)** Um chuveiro tem potência de 5.400 W quando ligado a 220 V. Se for ligado a 110 V (por engano), qual será a nova potência dissipada? O que acontece com o banho?
+
+::: callout-tip
+**Dica do desafio:** a resistência do chuveiro é constante. Use $P = U^2/R$ para os dois casos!
+:::
+
+------------------------------------------------------------------------
+
+

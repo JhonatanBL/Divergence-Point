@@ -69,16 +69,63 @@ export type Lesson = {
 
 export const lessons: Lesson[] = [
   {
-    slug: "gravitacao-universal",
-    title: "Gravitação Universal",
+    slug: "gravitacao",
+    title: "Gravitação",
     subject: "Física",
     stage: "Ensino Médio",
-    topic: "Gravitação",
+    topic: "mecanica",
     description:
       "Lei da gravitação universal, órbitas e simulação interativa da atração entre corpos.",
     level: "Vestibular",
     date: "2026-05-20",
-    folder: "gravitacao-universal",
+    folder: "mecanica/gravitacao",
+  },{
+    slug: "o-que-e-fisica",
+    title: "O que é física?",
+    subject: "Física",
+    stage: "Ensino Médio",
+    topic: "fisica elementar",
+    description:
+      "Introdução aos conceitos fundamentais da Física, método científico, unidades de medida, grandezas escalares e vetoriais e interpretação de gráficos.",
+    level: "Vestibular",
+    date: "2026-10-30",
+    folder: "indroducao-a-fisica/o-que-e-fisica",
+  },
+  {
+    slug: "circuitos-eletricos",
+    title: "Circuitos eletricos",
+    subject: "Física",
+    stage: "Ensino Médio",
+    topic: "eletromagnetismo",
+    description:
+      "Introdução aos circuitos elétricos, abordando corrente, tensão, resistência elétrica, Leis de Ohm, efeito Joule e associações de resistores em série e paralelo.",
+    level: "Vestibular",
+    date: "2026-10-30",
+    folder: "eletromagnetismo/circuitos-eletricos",
+  },
+  {
+    slug: "energia-e-potencia-eletrica",
+    title: "Energia e potência elétrica",
+    subject: "Física",
+    stage: "Ensino Médio",
+    topic: "eletromagnetismo",
+    description:
+      "Estudo da energia e potência elétrica, abordando consumo de energia, efeito Joule, cálculo da conta de luz, potência em resistores.",
+    level: "Vestibular",
+    date: "2026-10-30",
+    folder: "eletromagnetismo/energia-e-potencia-eletrica",
+  },
+    {
+    slug: "movimento-uniformimente-variado",
+    title: "Movimento uniformimente variado",
+    subject: "Física",
+    stage: "Ensino Médio",
+    topic: "cinematica",
+    description:
+      "Estudo do Movimento Uniformemente Variado (MUV), abordando aceleração, equações horárias, equação de Torricelli, interpretação de gráficos, queda livre e lançamento vertical.",
+    level: "Vestibular",
+    date: "2026-10-30",
+    folder: "cinematica/movimento-uniformimente-variado",
   },
     {
     slug: "introducao-algebra-linear",
@@ -115,43 +162,7 @@ export const lessons: Lesson[] = [
     level: "Graduaçao",
     date: "2026-05-20",
     folder: "algebra-linear/coordenadas-na-reta",
-  },
-  {
-    slug: "muv",
-    title: "Movimento Uniformemente Variado",
-    subject: "Física",
-    stage: "Ensino Médio",
-    topic: "Cinemática",
-    description:
-      "Conceitos de aceleração constante, equações de Torricelli e problemas resolvidos com simulação de queda livre.",
-    level: "Vestibular",
-    date: "2026-03-10",
-    folder: "muv",
-  },
-  {
-    slug: "autovalores-svd",
-    title: "Autovalores, Autovetores e SVD",
-    subject: "Matemática",
-    stage: "Graduação",
-    topic: "Álgebra Linear Numérica",
-    description:
-      "Teoria e exercícios resolvidos sobre autovalores/autovetores, decomposição SVD e método de Newton.",
-    level: "Graduação",
-    date: "2026-06-01",
-    folder: "autovalores-svd",
-    comingSoon: true,
-  },
-  {
-    slug: "atencao-bahdanau",
-    title: "Tradução Neural com Atenção de Bahdanau",
-    subject: "Computação",
-    stage: "Graduação",
-    topic: "Deep Learning",
-    description:
-      "Encoder-decoder com atenção para conversão de datas: arquitetura, treino e resultados experimentais.",
-    level: "Graduação",
-    date: "2026-06-15",
-    folder: "atencao-bahdanau",
+     comingSoon: true,
   },
   // Adicione novas aulas aqui seguindo o mesmo formato.
   // {

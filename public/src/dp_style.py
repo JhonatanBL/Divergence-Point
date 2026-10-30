@@ -9,25 +9,37 @@ Uso (matplotlib/seaborn):
 
 Uso (plotly, gráfico interativo):
     import plotly.express as px
-    from IPython.display import HTML
+    from plotly.offline import get_plotlyjs
+    from IPython.display import HTML, display
     import dp_style
 
     fig = px.line(df, x="x", y="y")
     fig = dp_style.plotly(fig)
-    HTML(fig.to_html(include_plotlyjs=True, full_html=False))
+    display(HTML("<script>" + get_plotlyjs() + "</script>"))   # biblioteca (1x por aula)
+    display(HTML(fig.to_html(include_plotlyjs=False, full_html=False)))
 
-    IMPORTANTE: use exatamente esse padrão (to_html + HTML), NÃO fig.show().
-    fig.show() faz o Reveal carregar a biblioteca do plotly.js de um CDN
-    toda vez que o slide abre — se não tiver internet na hora da aula
-    (ou o wifi da sala cair), o gráfico simplesmente não aparece. Com
-    include_plotlyjs=True a biblioteca inteira vai embutida no próprio
-    HTML exportado (~3-4 MB a mais no arquivo, mas funciona 100% offline,
-    igual o resto da aula).
+    IMPORTANTE: use esse padrão (biblioteca e gráfico em saídas SEPARADAS),
+    NÃO fig.show() e NÃO to_html(include_plotlyjs=True).
+
+    - fig.show() faz o Reveal carregar a biblioteca do plotly.js de um CDN
+      toda vez que o slide abre — se não tiver internet na hora da aula
+      (ou o wifi da sala cair), o gráfico simplesmente não aparece.
+    - to_html(include_plotlyjs=True) embute a biblioteca no mesmo bloco do
+      gráfico, e o Quarto então tira o bloco inteiro de dentro do slide:
+      o gráfico vai parar fora do .reveal e aparece em TODOS os slides.
+    - Com a biblioteca numa saída própria (get_plotlyjs), ela vai embutida
+      no HTML exportado (~3-4 MB a mais, 100% offline, igual o resto da
+      aula) e o gráfico fica dentro do slide onde foi criado.
 
     Se tiver MAIS de um gráfico plotly na mesma aula, embuta a biblioteca
     só uma vez (no primeiro) e reaproveite nos demais:
-        HTML(fig.to_html(include_plotlyjs=True, full_html=False))   # 1º gráfico
-        HTML(fig2.to_html(include_plotlyjs=False, full_html=False)) # os próximos
+        display(HTML("<script>" + get_plotlyjs() + "</script>"))              # 1x
+        display(HTML(fig.to_html(include_plotlyjs=False, full_html=False)))   # 1º gráfico
+        display(HTML(fig2.to_html(include_plotlyjs=False, full_html=False)))  # os próximos
+
+    Dica: se o gráfico precisar redimensionar ao entrar no slide, passe
+    default_height="420px", default_width="100%" e um post_script que
+    chame Plotly.Plots.resize em Reveal.on('slidechanged').
 """
 
 import matplotlib.pyplot as plt

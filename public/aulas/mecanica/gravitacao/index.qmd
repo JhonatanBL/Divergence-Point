@@ -1,0 +1,898 @@
+---
+title: "Gravitação"
+subtitle: "Mecanica"
+
+date: 2026-04-10
+date-format: "DD/MM/YYYY"
+lang: pt
+jupyter: python3
+title-slide-attributes:
+  data-background-image: ../../../src/logo.png   # logo na capa (slide de título gerado pelo Quarto)
+  data-background-size: 7.5em
+  data-background-position: top 60% center
+format:
+  revealjs:
+    chalkboard:
+      buttons: true
+      theme: chalkboard
+    theme: night                   # base escura nativa do Reveal
+    css: ../../../src/styles.css
+    scrollable: false
+    center: false                  # sem centralização vertical: evita o "pulo" do slide que sai
+
+    slide-number: c/t
+    html-math-method: katex
+    progress: true
+    controls: true
+    hash: true
+    transition: fade
+    background-transition: fade
+    highlight-style: nord
+    code-line-numbers: true
+    margin: 0.06
+    responsive: true
+    auto-stretch: false
+    footer: "Divergence Point"
+    include-in-header: ../../../src/theme-init.html
+    include-after-body: ../../../src/theme-toggle.html
+---
+
+## Força centrípeta   
+
+```{python}
+#| echo: false
+import sys
+sys.path.append("../../../src")   # onde está o dp_style.py
+
+import math
+import plotly.graph_objects as go
+from plotly.offline import get_plotlyjs
+from IPython.display import HTML, display
+import dp_style
+
+# Cores (azul e vermelho vêm do tema; as demais seguem a paleta do styles.css)
+AZUL, VERMELHO = dp_style.PALETTE["azul"], dp_style.PALETTE["vermelho"]
+LARANJA, VERDE, CINZA, AMARELO = "#ff8a42", "#34d399", "#94a3b8", "#f59e0b"
+
+# A biblioteca plotly.js vai embutida (funciona offline), UMA vez só e em uma
+# saída SEPARADA dos gráficos (se saírem juntos, o Quarto tira o gráfico do slide).
+display(HTML("<script>" + get_plotlyjs() + "</script>"))
+
+# Scripts globais: redimensionar os gráficos quando o slide aparece, desenhar
+# setas e animar (a animação só roda enquanto o slide está na tela)
+display(HTML("""
+<script>
+(function () {
+  function r() {
+    if (!window.Plotly) return;
+    document.querySelectorAll('.plotly-graph-div').forEach(function (g) { Plotly.Plots.resize(g); });
+  }
+  var t = setInterval(function () {
+    if (window.Reveal && Reveal.on) {
+      clearInterval(t);
+      Reveal.on('ready', r); Reveal.on('slidechanged', r); Reveal.on('resize', r);
+      r();
+    }
+  }, 200);
+  window.addEventListener('resize', r);
+
+  // seta: corpo (x1,y1) -> ponta (x2,y2), com duas "farpas"
+  window.dpSeta = function (x1, y1, x2, y2) {
+    var L = 0.09, a = Math.atan2(y2 - y1, x2 - x1);
+    return {
+      x: [x1, x2, x2 - L * Math.cos(a - 0.45), x2, x2 - L * Math.cos(a + 0.45)],
+      y: [y1, y2, y2 - L * Math.sin(a - 0.45), y2, y2 - L * Math.sin(a + 0.45)]
+    };
+  };
+
+  // chama quadro(grafico, n) a cada 40 ms, só se o slide estiver visível
+  window.dpAnimar = function (id, quadro) {
+    var n = 0;
+    setInterval(function () {
+      var g = document.getElementById(id);
+      if (!g || !window.Plotly || !g.data) return;
+      var s = g.closest('section');
+      if (s && !s.classList.contains('present')) return;
+      n += 1; quadro(g, n);
+    }, 40);
+  };
+})();
+</script>
+"""))
+
+
+def mostrar(fig, div_id, altura=270, legenda=False, margem_dir=15):
+    """Aplica o estilo do tema e escreve o gráfico no slide."""
+    fig = dp_style.plotly(fig, legend=False)
+    fig.update_layout(height=altura, margin=dict(l=55, r=margem_dir, t=10, b=45))
+    if legenda:
+        fig.update_layout(showlegend=True,
+                          legend=dict(x=0.02, y=0.98, bgcolor="rgba(0,0,0,0)"))
+    display(HTML(fig.to_html(
+        include_plotlyjs=False, full_html=False, div_id=div_id,
+        default_height=f"{altura}px", default_width="100%",
+        config={"responsive": True, "displayModeBar": False},
+    )))
+
+
+def sem_eixos(fig, xr, yr, igual=True):
+    """Esconde os eixos (para animações e desenhos)."""
+    fig.update_xaxes(range=xr, visible=False)
+    fig.update_yaxes(range=yr, visible=False,
+                     **(dict(scaleanchor="x", scaleratio=1) if igual else {}))
+
+
+def seta(x1, y1, x2, y2, L=0.09):
+    """Mesma seta do JavaScript (usada só para o quadro inicial)."""
+    a = math.atan2(y2 - y1, x2 - x1)
+    return ([x1, x2, x2 - L * math.cos(a - 0.45), x2, x2 - L * math.cos(a + 0.45)],
+            [y1, y2, y2 - L * math.sin(a - 0.45), y2, y2 - L * math.sin(a + 0.45)])
+```
+
+No **Movimento Circular Uniforme (MCU)**, o módulo da velocidade não muda, mas a **direção** muda o tempo todo.
+
+::::: columns
+:::: {.column width="55%"}
+::: {.callout-important title="Aceleração não é só sobre 'ficar mais rápido'"}
+Aceleração é **qualquer variação do vetor velocidade**, inclusive só de direção. Por isso, mesmo em velocidade constante, um corpo em círculo está **acelerando**.
+:::
+
+- Essa aceleração aponta sempre **para o centro** da trajetória.
+- É a força centrípeta que "curva" o caminho, mantendo o corpo em órbita.
+
+$$\boxed{a_{cp} = \frac{v^2}{r}}$$
+::::
+
+:::: {.column width="45%"}
+```{python}
+#| echo: false
+th = [i * 2 * math.pi / 200 for i in range(201)]
+ax_, ay_ = seta(1, 0, 0.55, 0)      # aceleração centrípeta (para o centro)
+vx_, vy_ = seta(1, 0, 1, 0.55)      # velocidade (tangente)
+
+fig = go.Figure()
+# 0: trajetória circular
+fig.add_trace(go.Scatter(
+    x=[math.cos(a) for a in th], y=[math.sin(a) for a in th], mode="lines",
+    line=dict(color=CINZA, width=2, dash="dash"), hoverinfo="skip", showlegend=False,
+))
+# 1: aceleração centrípeta   2: velocidade   3: corpo   4: centro
+fig.add_trace(go.Scatter(x=ax_, y=ay_, mode="lines", name="a_cp",
+                         line=dict(color=VERMELHO, width=4), hoverinfo="skip"))
+fig.add_trace(go.Scatter(x=vx_, y=vy_, mode="lines", name="v",
+                         line=dict(color=VERDE, width=4), hoverinfo="skip"))
+fig.add_trace(go.Scatter(x=[1], y=[0], mode="markers", showlegend=False,
+                         marker=dict(color=AZUL, size=18), hoverinfo="skip"))
+fig.add_trace(go.Scatter(x=[0], y=[0], mode="markers", showlegend=False,
+                         marker=dict(color=CINZA, size=9), hoverinfo="skip"))
+sem_eixos(fig, [-1.5, 1.5], [-1.5, 1.5])
+mostrar(fig, "graf-cp", altura=270, legenda=True)
+```
+
+```{python}
+#| echo: false
+HTML("""
+<script>
+dpAnimar('graf-cp', function (g, n) {
+  var t = n * 0.05, px = Math.cos(t), py = Math.sin(t);
+  var a = dpSeta(px, py, px - 0.45 * px, py - 0.45 * py);                 // para o centro
+  var v = dpSeta(px, py, px - 0.55 * Math.sin(t), py + 0.55 * Math.cos(t)); // tangente
+  Plotly.restyle(g, {x: [a.x, v.x, [px]], y: [a.y, v.y, [py]]}, [1, 2, 3]);
+});
+</script>
+""")
+```
+
+::: {.callout-tip title="Força centrípeta"}
+Pela 2ª Lei de Newton, $F_{cp}=m\cdot a_{cp}$:
+
+$$\boxed{F_{cp} = \frac{m\cdot v^2}{r}}$$
+
+Hoje veremos que, para planetas, luas e satélites, **quem fornece essa força é a gravidade**.
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## O que é Gravitação?
+
+::::: columns
+:::: {.column width="55%"}
+A **gravitação** é a interação atrativa entre quaisquer dois corpos com massa, uma das quatro forças fundamentais da natureza.
+
+- Mantém planetas em órbita ao redor do Sol
+- Faz objetos caírem na superfície terrestre
+- Mantém a Lua presa à Terra
+
+::: {.callout-note title="Isaac Newton (1687)"}
+*"Toda massa atrai toda outra massa com força proporcional ao produto das massas e inversamente proporcional ao quadrado da distância."*
+:::
+::::
+
+:::: {.column width="45%"}
+```{python}
+#| echo: false
+fl_x, fl_y = seta(-0.55, 0, -0.05, 0)    # força no corpo 1 (para a direita)
+fr_x, fr_y = seta(0.55, 0, 0.05, 0)      # força no corpo 2 (para a esquerda)
+
+fig = go.Figure()
+# 0: os dois corpos
+fig.add_trace(go.Scatter(
+    x=[-1, 1], y=[0, 0], mode="markers+text", text=["m₁", "m₂"], textposition="middle center",
+    textfont=dict(color="white", size=16), showlegend=False, hoverinfo="skip",
+    marker=dict(color=[AZUL, LARANJA], size=52),
+))
+# 1 e 2: as forças (par ação e reação)
+fig.add_trace(go.Scatter(x=fl_x, y=fl_y, mode="lines", name="F (força gravitacional)",
+                         line=dict(color=VERDE, width=4), hoverinfo="skip"))
+fig.add_trace(go.Scatter(x=fr_x, y=fr_y, mode="lines", showlegend=False,
+                         line=dict(color=VERDE, width=4), hoverinfo="skip"))
+# 3: linha da distância   4: rótulo "d"
+fig.add_trace(go.Scatter(x=[-1, 1], y=[-0.7, -0.7], mode="lines", showlegend=False,
+                         line=dict(color=CINZA, width=2, dash="dash"), hoverinfo="skip"))
+fig.add_trace(go.Scatter(x=[0], y=[-0.88], mode="text", text=["d"], showlegend=False,
+                         textfont=dict(size=18), hoverinfo="skip"))
+sem_eixos(fig, [-2.4, 2.4], [-1.4, 1.0], igual=False)
+mostrar(fig, "graf-intro", altura=340, legenda=True)
+```
+
+```{python}
+#| echo: false
+HTML("""
+<script>
+dpAnimar('graf-intro', function (g, n) {
+  var s = 1 + 0.24 * Math.sin(1.5 * n * 0.048);                // separação entre os corpos
+  var l = dpSeta(-s + 0.45, 0, -s + 0.45 + 0.5, 0);
+  var r = dpSeta(s - 0.45, 0, s - 0.45 - 0.5, 0);
+  Plotly.restyle(g, {x: [[-s, s], l.x, r.x, [-s, s]]}, [0, 1, 2, 3]);
+});
+</script>
+""")
+```
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Lei da Gravitação Universal
+
+$$\boxed{F = G \cdot \frac{m_1 \cdot m_2}{d^2}}$$
+
+::::: columns
+:::: {.column width="50%"}
+| Símbolo    | Significado                    | Unidade  |
+|:-----------|:-------------------------------|:---------|
+| $F$        | Força gravitacional (atrativa) | N        |
+| $G$        | Constante gravitacional        | N·m²/kg² |
+| $m_1, m_2$ | Massas dos corpos              | kg       |
+| $d$        | Distância entre centros        | m        |
+
+$$G = 6{,}67 \times 10^{-11} \text{ N·m}^2/\text{kg}^2$$
+::::
+
+:::: {.column width="50%"}
+**Proporcionalidades importantes:**
+
+- $F \propto m_1 \cdot m_2$ → dobrar qualquer massa dobra $F$
+- $F \propto 1/d^2$ → dobrar $d$ reduz $F$ para $1/4$
+- $F \propto 1/d^2$ → triplicar $d$ reduz $F$ para $1/9$
+::::
+:::::
+
+::: {.callout-tip title="O 'teste da Lua' de Newton"}
+Newton comparou $g_{Terra}/60^2$ (a Lua está a ~60 raios terrestres) com a aceleração centrípeta real da órbita lunar, e os valores batem! Essa foi a prova de que a gravidade da Terra e a força que prende a Lua são **a mesma força**.
+:::
+
+------------------------------------------------------------------------
+
+## Campo Gravitacional   
+
+::::: columns
+:::: {.column width="50%"}
+### O que é?
+
+O **campo gravitacional** representa a **intensidade da gravidade** produzida por um corpo de massa $M$ em um ponto situado a uma distância $d$.
+
+Em outras palavras, ele indica **quanto uma massa será acelerada** ao ser colocada nesse local.
+
+### Como a expressão é obtida?
+
+A força gravitacional entre dois corpos é dada por
+
+$$F = G\frac{Mm}{d^2}.$$
+
+Pela Segunda Lei de Newton, o peso de um corpo também pode ser escrito como
+
+$$F = mg.$$
+::::
+
+:::: {.column width="50%"}
+Igualando as duas expressões,
+
+$$mg = G\frac{Mm}{d^2}.$$
+
+Cancelando a massa de prova $m$,
+
+$$\boxed{g=\frac{GM}{d^2}}.$$
+
+Observe que o campo gravitacional depende **apenas da massa que gera o campo** ($M$) e da **distância** ($d$).
+
+::: {.callout-note title="Na superfície da Terra"}
+$g \approx 9{,}8\;\mathrm{m/s^2}$. Isso significa que um corpo em queda livre aumenta sua velocidade em aproximadamente $9{,}8\;\mathrm{m/s}$ a cada segundo.
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Campo Gravitacional no Interior de um Planeta   
+
+::::: columns
+:::: {.column width="52%"}
+### O que acontece no interior?
+
+Se o planeta possui **densidade uniforme**, apenas a massa contida **dentro da esfera de raio** $r$ contribui para a atração gravitacional.
+
+Como essa massa cresce com o volume,
+
+$$M(r)\propto r^3,$$
+
+o campo gravitacional torna-se
+
+$$\boxed{g(r)=\frac{GM}{R^3}\,r}$$
+
+ou seja, **a intensidade cresce linearmente com a distância ao centro**.
+::::
+
+:::: {.column width="48%"}
+```{python}
+#| echo: false
+rs = [i * 0.01 for i in range(301)]            # distância ao centro, em unidades de R
+gs = [x if x <= 1 else 1 / (x * x) for x in rs]  # g / g(R)
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(
+    x=rs, y=gs, mode="lines", line=dict(color=VERMELHO, width=4),
+    hovertemplate="r = %{x:.2f} R<br>g = %{y:.2f} g(R)<extra></extra>",
+))
+fig.add_trace(go.Scatter(                      # a superfície do planeta (r = R)
+    x=[1, 1], y=[0, 1.15], mode="lines",
+    line=dict(color=CINZA, width=1.5, dash="dot"), hoverinfo="skip",
+))
+fig.add_annotation(x=0.5, y=0.62, text="g ∝ r", showarrow=False,
+                   font=dict(color=VERMELHO, size=15))
+fig.add_annotation(x=1.9, y=0.5, text="g ∝ 1/r²", showarrow=False,
+                   font=dict(color=VERMELHO, size=15))
+fig.update_xaxes(range=[0, 3], tickvals=[0, 1, 2, 3], ticktext=["0", "R", "2R", "3R"],
+                 title="Distância ao centro")
+fig.update_yaxes(range=[0, 1.15], title="Campo gravitacional (g)")
+mostrar(fig, "graf-interior", altura=300)
+```
+
+Para distâncias maiores que o raio do planeta,
+
+$$\boxed{g=\frac{GM}{d^2}}$$
+
+e o campo passa a diminuir com o inverso do quadrado da distância.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Energia Potencial Gravitacional   
+
+::::: columns
+:::: {.column width="48%"}
+### O que é?
+
+A **energia potencial gravitacional** representa a energia associada à posição de dois corpos que interagem pela gravidade.
+
+Ela depende da **massa dos corpos** e da **distância entre seus centros**.
+
+### Expressão Geral
+
+$$\boxed{E_{pg}=-G\frac{m_1m_2}{d}}$$
+
+Quanto **menor** a distância entre os corpos, **mais negativa** é a energia potencial gravitacional.
+::::
+
+:::: {.column width="52%"}
+### Por que o sinal é negativo?
+
+A convenção adotada é definir
+
+$$E_{pg}=0$$
+
+quando os corpos estão **infinitamente afastados**. Assim:
+
+- aproximar os corpos **diminui** a energia potencial;
+- afastá-los **aumenta** a energia potencial;
+- para separar completamente os corpos é necessário fornecer energia ao sistema.
+
+::: {.callout-note title="Ideia importante"}
+A gravidade é uma força **atrativa**. Por isso, estados em que os corpos estão próximos possuem energia **menor** (mais negativa) do que estados em que estão muito distantes.
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Velocidade de Escape   
+
+A **velocidade de escape** é a **menor velocidade** que um corpo deve possuir para abandonar definitivamente o campo gravitacional de um astro.
+
+::::: columns
+:::: {.column width="50%"}
+### Como ela é obtida?
+
+Para escapar da gravidade, a energia mecânica total deve ser igual a zero. No instante do lançamento,
+
+$$E_c + E_{pg}=0,$$
+
+ou seja,
+
+$$\frac12 mv^2-\frac{GMm}{R}=0.$$
+::::
+
+:::: {.column width="50%"}
+Isolando a velocidade,
+
+$$\boxed{v_{esc}=\sqrt{\frac{2GM}{R}}}$$
+::::
+:::::
+
+::::: columns
+:::: {.column width="25%"}
+::: dica
+**Terra**\
+$v_{esc} = 11{,}2$ km/s
+:::
+::::
+
+:::: {.column width="25%"}
+::: importante
+**Lua**\
+$v_{esc} = 2{,}4$ km/s
+:::
+::::
+
+:::: {.column width="25%"}
+::: atencao
+**Marte**\
+$v_{esc} = 5{,}0$ km/s
+:::
+::::
+
+:::: {.column width="25%"}
+::: passo
+**Sol**\
+$v_{esc} = 618$ km/s
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Buracos Negros
+
+Se uma estrela colapsa sem perder massa, seu raio diminui e o campo na superfície **aumenta** ($1/d^2$): raio à metade → peso 4× maior; a 1/10 → 100× maior.
+
+::::: columns
+:::: {.column width="50%"}
+Se o Sol encolhesse a menos de **~3 km** de raio, $v_{esc}$ superaria a velocidade da luz: nem a luz escaparia. É um **buraco negro**.
+
+::: {.callout-important title="Quem vira buraco negro?"}
+Estrelas muito massivas (de dezenas de massas solares) que, ao esgotar o combustível nuclear, deixam um núcleo remanescente com mais de ~3 massas solares.
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.callout-tip title="Como detectamos?"}
+Pela influência gravitacional sobre estrelas próximas e discos de matéria em queda; não é possível "ver" diretamente.
+:::
+
+::: {.callout-note title="Mito"}
+Fora do raio original da estrela, o campo gravitacional **não muda**: buracos negros não são aspiradores cósmicos.
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Leis de Kepler
+
+::::: columns
+::: {.column width="33%"}
+::: dica
+**1ª Lei: das Órbitas**
+
+Planetas descrevem **elipses** com o Sol em um dos focos.
+:::
+:::
+
+::: {.column width="33%"}
+::: importante
+**2ª Lei: das Áreas**
+
+O raio vetor varre **áreas iguais em tempos iguais** → mais rápido perto do Sol.
+:::
+:::
+
+::: {.column width="34%"}
+::: atencao
+**3ª Lei: dos Períodos**
+
+$$\frac{T^2}{r^3} = \frac{4\pi^2}{GM} = \text{cte}$$
+:::
+:::
+:::::
+
+::: {.callout-note title="Um pouco de história"}
+Kepler **observou** essas leis nos dados de Tycho Brahe. Só décadas depois Newton **explicou por quê** elas funcionam, a partir da lei da gravitação, como veremos a seguir.
+:::
+
+------------------------------------------------------------------------
+
+## Leis de Kepler: Simulação
+
+```{python}
+#| echo: false
+b = 140 / 220                     # semieixo menor (semieixo maior = 1)
+c = math.sqrt(1 - b * b)          # distância do centro ao foco (onde fica o Sol)
+elx = [math.cos(a * math.pi / 180) for a in range(361)]
+ely = [b * math.sin(a * math.pi / 180) for a in range(361)]
+
+fig = go.Figure()
+# 0: órbita elíptica
+fig.add_trace(go.Scatter(x=elx, y=ely, mode="lines", hoverinfo="skip",
+                         line=dict(color=CINZA, width=2, dash="dash")))
+# 1: área varrida   2: raio vetor
+fig.add_trace(go.Scatter(x=[-c, 1, -c], y=[0, 0, 0], mode="lines", fill="toself",
+                         fillcolor="rgba(239,68,68,0.25)", line=dict(width=0),
+                         hoverinfo="skip"))
+fig.add_trace(go.Scatter(x=[-c, 1], y=[0, 0], mode="lines", hoverinfo="skip",
+                         line=dict(color="rgba(239,68,68,0.8)", width=2)))
+# 3: Sol (no foco)   4: planeta
+fig.add_trace(go.Scatter(x=[-c], y=[0], mode="markers", hoverinfo="skip",
+                         marker=dict(color=AMARELO, size=30)))
+fig.add_trace(go.Scatter(x=[1], y=[0], mode="markers", hoverinfo="skip",
+                         marker=dict(color=AZUL, size=15)))
+sem_eixos(fig, [-1.2, 1.2], [-0.75, 0.75])
+mostrar(fig, "graf-kepler", altura=420)
+```
+
+```{python}
+#| echo: false
+HTML("""
+<script>
+(function () {
+  var b = 140 / 220, c = Math.sqrt(1 - b * b), th = 0;
+  dpAnimar('graf-kepler', function (g) {
+    var px = Math.cos(th), py = b * Math.sin(th);
+    var r = Math.hypot(px + c, py);
+    // área varrida: setores "para trás" cujo ângulo cresce com 1/r² (áreas iguais)
+    var wx = [-c], wy = [0];
+    for (var i = 0; i <= 25; i++) {
+      var tp = th - i * 0.00496 / (r * r);
+      wx.push(Math.cos(tp)); wy.push(b * Math.sin(tp));
+    }
+    wx.push(-c); wy.push(0);
+    Plotly.restyle(g, {x: [wx, [-c, px], [px]], y: [wy, [0, py], [py]]}, [1, 2, 4]);
+    th += 0.03 / (r * r);      // mais rápido perto do Sol (2ª Lei)
+  });
+})();
+</script>
+""")
+```
+
+O planeta se move mais rápido perto do Sol (2ª Lei). A região vermelha representa a área varrida pelo raio vetor em intervalos de tempo iguais.
+
+------------------------------------------------------------------------
+
+## Satélites: de onde vêm $v_{orb}$ e $T$?   
+
+Num satélite em órbita circular, a força gravitacional **é** a força centrípeta.
+
+::::: columns
+:::: {.column width="50%"}
+$$\frac{GMm}{d^2} = \frac{mv^2}{d}$$
+
+Cancelando $m$ (a órbita não depende da massa do satélite) e isolando $v$:
+
+$$\boxed{v_{orb} = \sqrt{\frac{GM}{d}}}$$
+::::
+
+:::: {.column width="50%"}
+Usando $v=2\pi d/T$ e substituindo:
+
+$$\boxed{T = 2\pi\sqrt{\frac{d^3}{GM}}}$$
+
+::: {.callout-tip title="Daqui nasce a 3ª Lei de Kepler"}
+Elevando ao quadrado: $T^2/d^3 = 4\pi^2/GM$, constante, pois só depende de $M$. Isso é exatamente o que Kepler tinha observado, e agora Newton explica **por quê**!
+:::
+::::
+:::::
+
+| Satélite        | Altitude  | $v_{orb}$ | $T$    |
+|:----------------|:----------|:----------|:-------|
+| ISS             | 400 km    | 7,7 km/s  | 92 min |
+| Geoestacionário | 35.786 km | 3,1 km/s  | 24 h   |
+
+------------------------------------------------------------------------
+
+## Gráfico: g varia com a Altitude   
+
+::::: columns
+:::: {.column width="58%"}
+```{python}
+#| echo: false
+G, M, R = 6.67e-11, 6e24, 6.4e6
+hs = [i * 100 for i in range(401)]                   # altitude de 0 a 40.000 km
+gs = [G * M / (R + h * 1000) ** 2 for h in hs]
+
+def g_em(h_km):
+    return G * M / (R + h_km * 1000) ** 2
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(
+    x=hs, y=gs, mode="lines", line=dict(color=AZUL, width=4),
+    hovertemplate="h = %{x:.0f} km<br>g = %{y:.2f} m/s²<extra></extra>",
+))
+fig.add_trace(go.Scatter(
+    x=[0, 400, 35786], y=[g_em(0), g_em(400), g_em(35786)], mode="markers+text",
+    text=["Superfície (9,8 m/s²)", "ISS (8,7 m/s²)", "Geoestacionário (0,22 m/s²)"],
+    textposition=["top right", "top right", "top left"],
+    textfont=dict(size=14), hoverinfo="skip",
+    marker=dict(color=[VERDE, LARANJA, VERMELHO], size=12),
+))
+fig.update_xaxes(range=[0, 40000], title="Altitude (km)")
+fig.update_yaxes(range=[0, 11], title="g (m/s²)")
+mostrar(fig, "graf-galt", altura=360)
+```
+::::
+
+:::: {.column width="42%"}
+$$g(h) = \frac{GM}{(R+h)^2}$$
+
+| Local      | Altitude  | $g$       |
+|:-----------|:----------|:----------|
+| Superfície | 0         | 9,8 m/s²  |
+| ISS        | 400 km    | 8,7 m/s²  |
+| Geoest.    | 35.786 km | 0,22 m/s² |
+
+::: {.callout-note title="Microgravidade"}
+Astronautas na ISS não sentem "gravidade zero": eles estão em **queda livre constante**, junto com a estação.
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Exercício 1
+
+::::: columns
+:::: {.column width="50%"}
+::: enunciado
+**Dois corpos de 6 kg cada estão separados por 2 m.** Considere $G = 6{,}67\times10^{-11}\ \mathrm{N\cdot m^2/kg^2}$. Qual é a força gravitacional entre eles?
+:::
+
+**A)** $3{,}0\times10^{-10}\ \mathrm{N}$
+
+**B)** $6{,}0\times10^{-10}\ \mathrm{N}$
+
+**C)** $1{,}5\times10^{-9}\ \mathrm{N}$
+
+**D)** $6{,}0\times10^{-11}\ \mathrm{N}$
+::::
+
+:::: {.column width="50%"}
+**Resposta: B**
+
+$$F=\frac{Gm_1m_2}{d^2}=\frac{6{,}67\times10^{-11}\times6\times6}{2^2}\approx6{,}0\times10^{-10}\ \mathrm{N}$$
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Exercício 2   
+
+::::: columns
+:::: {.column width="50%"}
+::: enunciado
+Um satélite de massa $m=500\ \mathrm{kg}$ está a uma distância $d=7\times10^6\ \mathrm{m}$ do centro da Terra. Considere $G=6{,}67\times10^{-11}\ \mathrm{N\,m^2/kg^2}$ e $M_T=6\times10^{24}\ \mathrm{kg}$. A energia potencial gravitacional do satélite é aproximadamente:
+:::
+
+**A)** $-2{,}8\times10^{10}\ \mathrm{J}$
+
+**B)** $-2{,}8\times10^{11}\ \mathrm{J}$
+
+**C)** $+2{,}8\times10^{11}\ \mathrm{J}$
+
+**D)** $-5{,}6\times10^{11}\ \mathrm{J}$
+::::
+
+:::: {.column width="50%"}
+**Resposta: A**
+
+$$E_{pg}=-\frac{GMm}{d}$$
+
+$$E_{pg}=-\frac{(6{,}67\times10^{-11})(6\times10^{24})(500)}{7\times10^6}$$
+
+$$E_{pg}\approx-2{,}9\times10^{10}\ \mathrm{J}$$
+
+O sinal negativo indica que o satélite está **preso gravitacionalmente** à Terra.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Exercício 3
+
+::::: columns
+:::: {.column width="50%"}
+::: enunciado
+Um satélite está a uma distância $R$ do centro da Terra. A energia potencial gravitacional é dada por $E_{pg}=-\frac{GMm}{R}$. Ao afastar o satélite para uma distância maior, o que acontece com sua energia potencial gravitacional?
+:::
+
+**A)** Torna-se mais negativa.
+
+**B)** Diminui até chegar a $-\infty$.
+
+**C)** Aumenta, aproximando-se de zero.
+
+**D)** Permanece constante.
+::::
+
+:::: {.column width="50%"}
+**Resposta: C**
+
+Como $E_{pg}=-\dfrac{GMm}{R}$, quando a distância $R$ aumenta, o valor absoluto da energia diminui.
+
+Assim, $E_{pg}\rightarrow0$ quando $R\rightarrow\infty$.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Exercício 4
+
+::::: columns
+:::: {.column width="50%"}
+::: enunciado
+Um planeta possui velocidade de escape $v_{esc}=10\ \mathrm{km/s}$. Um foguete é lançado desse planeta com velocidade inicial de $5\ \mathrm{km/s}$. Desprezando a resistência do ar, podemos afirmar que:
+:::
+
+**A)** O foguete escapará porque possui energia cinética.
+
+**B)** O foguete ficará em órbita ou retornará ao planeta.
+
+**C)** O foguete atingirá o infinito com velocidade constante.
+
+**D)** A massa do foguete determina se ele escapará.
+::::
+
+:::: {.column width="50%"}
+**Resposta: B**
+
+A velocidade de escape é a menor velocidade necessária para que a energia total seja nula no infinito.
+
+Como
+
+$$v<v_{esc},$$
+
+o foguete não possui energia suficiente para escapar completamente do campo gravitacional.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Exercício 5
+
+::::: columns
+:::: {.column width="50%"}
+::: enunciado
+A velocidade de escape de um planeta é dada por $v_{esc}=\sqrt{\frac{2GM}{R}}$. Considere dois planetas com a **mesma massa**, mas com raios diferentes: o planeta A possui raio $R$ e o planeta B possui raio $2R$. A relação entre as velocidades de escape é:
+:::
+
+**A)** $v_B=2v_A$
+
+**B)** $v_B=\sqrt{2}\,v_A$
+
+**C)** $v_B=\dfrac{v_A}{\sqrt{2}}$
+
+**D)** $v_B=\dfrac{v_A}{2}$
+::::
+
+:::: {.column width="50%"}
+**Resposta: C**
+
+Como $v_{esc}\propto\dfrac{1}{\sqrt{R}}$, aumentando o raio do planeta por um fator 2:
+
+$$v_B=\sqrt{\frac{R}{2R}}\,v_A=\frac{v_A}{\sqrt{2}}$$
+
+Logo, um planeta maior (com a mesma massa) possui menor velocidade de escape.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Exercício 6
+
+::::: columns
+:::: {.column width="50%"}
+::: enunciado
+Por que os astronautas da Estação Espacial Internacional (ISS) flutuam?
+:::
+
+**A)** Porque não existe gravidade no espaço.
+
+**B)** Porque a estação cancela a gravidade.
+
+**C)** Porque a estação e os astronautas estão em queda livre contínua.
+
+**D)** Porque a velocidade orbital elimina a massa.
+::::
+
+:::: {.column width="50%"}
+**Resposta: C**
+
+A ISS e tudo o que está dentro dela estão em **queda livre contínua** ao redor da Terra. Por isso, os astronautas experimentam a sensação de **microgravidade**.
+::::
+:::::
+
+------------------------------------------------------------------------
+
+## Resumão: Fórmulas Essenciais   
+
+::::: columns
+::: {.column width="50%"}
+**Aceleração / Força centrípeta**
+
+$$a_{cp} = \frac{v^2}{r} \qquad F_{cp} = \frac{mv^2}{r}$$
+
+**Força Gravitacional**
+
+$$F = G \cdot \frac{m_1 \cdot m_2}{d^2}$$
+
+**Campo Gravitacional**
+
+$$g = \frac{G \cdot M}{d^2}$$
+
+**Energia Potencial**
+
+$$E_{pg} = -G \cdot \frac{m_1 \cdot m_2}{d}$$
+:::
+
+::: {.column width="50%"}
+**Velocidade de Escape**
+
+$$v_{esc} = \sqrt{\frac{2GM}{R}}$$
+
+**Velocidade e Período Orbital**
+
+$$v_{orb} = \sqrt{\frac{GM}{d}} \qquad T = 2\pi\sqrt{\frac{d^3}{GM}}$$
+
+**3ª Lei de Kepler**
+
+$$\frac{T^2}{a^3} = \frac{4\pi^2}{GM}$$
+:::
+:::::
+
+
+
+```{=html}
+<script>
+// O Quarto marca o slide de título com "center", e o Reveal então o posiciona
+// no meio da tela enquanto os demais ficam no topo (isso causava o "pulo").
+(function () {
+  var t = setInterval(function () {
+    if (window.Reveal && Reveal.isReady && Reveal.isReady()) {
+      clearInterval(t);
+      var s = document.getElementById('title-slide');
+      if (s) { s.classList.remove('center'); Reveal.layout(); }
+    }
+  }, 100);
+})();
+</script>
+```
